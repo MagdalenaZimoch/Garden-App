@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Login_activity</string>
+    <string name="zaloguj">Zaloguj</string>
+    <string name="zarejestruj">Zarejestruj</string>
+    <string name="zaloguj_zarejestruj">ZALOGUJ / ZAREJESTRUJ</string>
+    <string name="has_o">Hasło</string>
+    <string name="nazwa_u_ytkownika">Nazwa użytkownika</string>
+    <string name="repeat_password">Powtórz hasło</string>
+    <string name="password">Hasło</string>
+    <string name="user_name">Nazwa użytkownika</string>
+    <string name="register_baner">REJESTRACJA</string>
+</resources>
