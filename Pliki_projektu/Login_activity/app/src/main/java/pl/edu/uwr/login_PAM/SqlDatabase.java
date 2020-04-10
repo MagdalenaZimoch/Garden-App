@@ -1,6 +1,8 @@
 package pl.edu.uwr.login_PAM;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -28,6 +30,7 @@ public class SqlDatabase  extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(createUsers);
+        System.out.println("stworzona baza danych");
         // sqLiteDatabase.execSQL(createSeeds);
         // sqLiteDatabase.execSQL(createSownSeeds);
         // sqLiteDatabase.execSQL(createPrinciples);
@@ -39,5 +42,24 @@ public class SqlDatabase  extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS users");
         onCreate(sqLiteDatabase);
+    }
+
+    public boolean addUser(String _name, String _password)
+    {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name",_name);
+        cv.put("password",_password);
+
+        long result = gardenDb.insert("users",null,cv);
+        if(result == -1) return false;
+        else return true;
+    }
+    public Cursor getAllData(String _table_name)
+    {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT * FROM " + _table_name;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
     }
 }
