@@ -2,16 +2,15 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
         android:type="radial"
-        android:startColor="#162712"
-        android:endColor="@android:color/black"
+        android:startColor="#0F120C"
+        android:endColor="#0F120C"
         android:gradientRadius="120dp"
         />
-    <corners
-        android:radius="25dp"
-        />
+    <corners android:radius="20dp" />
     <size
         android:width="120dp"
         android:height="40dp"
         />
+
 
 </shape>

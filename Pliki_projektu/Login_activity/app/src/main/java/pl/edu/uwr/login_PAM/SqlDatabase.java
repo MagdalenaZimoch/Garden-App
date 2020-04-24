@@ -30,7 +30,6 @@ public class SqlDatabase  extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(createUsers);
-        System.out.println("stworzona baza danych");
         // sqLiteDatabase.execSQL(createSeeds);
         // sqLiteDatabase.execSQL(createSownSeeds);
         // sqLiteDatabase.execSQL(createPrinciples);

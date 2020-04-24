@@ -9,4 +9,5 @@
     <string name="password">Hasło</string>
     <string name="user_name">Nazwa użytkownika</string>
     <string name="register_baner">REJESTRACJA</string>
+    <string name="moje_powiadomienia_button_text">Moje powiadomienia</string>
 </resources>
