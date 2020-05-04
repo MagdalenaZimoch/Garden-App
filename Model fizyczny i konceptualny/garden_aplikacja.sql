@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: Garden_aplikacja
+-- Host: 127.0.0.1    Database: test8
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -71,21 +71,6 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `zmien_powiadomienie_status` AFTER UPDATE ON `egzemplarze` FOR EACH ROW IF NEW.status = 'NIE ZASADZONE' THEN SET @data_koncowa_zasiana = (SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny);  SET @data_poczatkowa_zasiana = (SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Nie zapomnij mnie zasadzi†!',@data_koncowa_zasiana), (NEW.id_e, NEW.id_ogrodka,'Mo¾esz mnie zasadzi†!',@data_poczatkowa_zasiana);  ELSEIF NEW.status = 'ZASADZONE' THEN DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zasadzi†!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Mo¾esz mnie zasadzi†!'; SET @data_poczatkowa_zbioru = (SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e,NEW.id_ogrodka,'Gotowe do zebrania!',@data_poczatkowa_zbioru);  ELSEIF NEW.status = 'DO ZBIORU' THEN  SET @data_koncowa_zabioru = (SELECT okres_zbioru_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e,NEW.id_ogrodka,'Nie zapomij mnie zebra†!',@data_koncowa_zbioru);  ELSEIF NEW.status = 'ZEBRANE' THEN  DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e;END IF */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `usun_powiadomienia` BEFORE DELETE ON `egzemplarze` FOR EACH ROW DELETE FROM powiadomienia where id_egzemplarza = OLD.id_e */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -281,4 +266,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-04 16:20:56
+-- Dump completed on 2020-05-04 16:43:45
