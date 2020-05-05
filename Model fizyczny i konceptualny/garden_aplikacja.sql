@@ -34,7 +34,7 @@ CREATE TABLE `egzemplarze` (
   UNIQUE KEY `miejsce_w_ogrodku` (`id_ogrodka`,`miejsce`),
   KEY `id_rosliny` (`id_rosliny`),
   CONSTRAINT `egzemplarze_ibfk_1` FOREIGN KEY (`id_rosliny`) REFERENCES `rosliny` (`id_r`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,19 +43,19 @@ CREATE TABLE `egzemplarze` (
 
 LOCK TABLES `egzemplarze` WRITE;
 /*!40000 ALTER TABLE `egzemplarze` DISABLE KEYS */;
-INSERT INTO `egzemplarze` VALUES (1,1,1,'A1','ZASADZONE','2020-05-03 12:10:10'),(2,1,2,'A2','NIE ZASADZONE','2020-05-03 12:10:10'),(3,2,1,'A1','ZASADZONE','2020-05-03 12:10:10'),(4,2,2,'A2','NIE ZASADZONE','2020-05-03 12:10:10'),(7,4,1,'A1','ZASADZONE','2020-05-03 12:10:10'),(8,2,2,'A3','NIE ZASADZONE','2020-05-03 12:10:10'),(10,1,1,'A3','NIE ZASADZONE','2020-05-03 19:11:47'),(15,1,1,'A7','ZASADZONE','2020-05-03 21:10:33'),(17,1,3,'A8','NIE ZASADZONE','2020-05-04 13:52:57');
+INSERT INTO `egzemplarze` VALUES (1,1,1,'A1','NIE ZASADZONE','2020-05-03 12:10:10'),(2,1,2,'A2','NIE ZASADZONE','2020-05-03 12:10:10'),(3,2,1,'A1','NIE ZASADZONE','2020-05-03 12:10:10'),(4,2,2,'A2','NIE ZASADZONE','2020-05-03 12:10:10'),(8,2,2,'A3','NIE ZASADZONE','2020-05-03 12:10:10'),(10,1,1,'A3','NIE ZASADZONE','2020-05-03 19:11:47'),(15,1,1,'A7','NIE ZASADZONE','2020-05-03 21:10:33'),(17,1,3,'A8','NIE ZASADZONE','2020-05-04 13:52:57'),(18,1,1,'a10','NIE ZASADZONE','2020-05-05 12:10:58');
 /*!40000 ALTER TABLE `egzemplarze` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = cp852 */ ;
+/*!50003 SET character_set_results = cp852 */ ;
+/*!50003 SET collation_connection  = cp852_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `dodaj_powiadomienie_zasiania` AFTER INSERT ON `egzemplarze` FOR EACH ROW IF NEW.status = 'NIE ZASADZONE' THEN SET @data_koncowa_zasiana = (SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny);  SET @data_poczatkowa_zasiana = (SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Nie zapomnij mnie zasadzi†!',@data_koncowa_zasiana), (NEW.id_e, NEW.id_ogrodka,'Mo¾esz mnie zasadzi†!',@data_poczatkowa_zasiana);  ELSEIF NEW.status = 'ZASADZONE' THEN   SET @data_poczatkowa_zbioru = (SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Gotowe do zebrania!',@data_poczatkowa_zbioru);  END IF */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `dodaj_powiadomienie_zasiania` AFTER INSERT ON `egzemplarze` FOR EACH ROW IF NEW.status = 'NIE ZASADZONE' THEN SET @data_koncowa_zasiana = (SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); SET @data_poczatkowa_zasiana = (SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Nie zapomnij mnie zasadzi�!',@data_koncowa_zasiana), (NEW.id_e, NEW.id_ogrodka,'Mo�esz mnie zasadzi�!',@data_poczatkowa_zasiana);  ELSEIF NEW.status = 'ZASADZONE' THEN   SET @data_poczatkowa_zbioru = (SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny);  SET @data_koncowa_zbioru = (SELECT okres_zbioru_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Gotowe do zebrania!',@data_poczatkowa_zbioru), (NEW.id_e, NEW.id_ogrodka,'Nie zapomnij mnie zebra�!',@data_poczatkowa_zbioru); END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -64,13 +64,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = cp852 */ ;
+/*!50003 SET character_set_results = cp852 */ ;
+/*!50003 SET collation_connection  = cp852_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `zmien_powiadomienie_status` AFTER UPDATE ON `egzemplarze` FOR EACH ROW IF NEW.status = 'NIE ZASADZONE' THEN SET @data_koncowa_zasiana = (SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny);  SET @data_poczatkowa_zasiana = (SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Nie zapomnij mnie zasadzi†!',@data_koncowa_zasiana), (NEW.id_e, NEW.id_ogrodka,'Mo¾esz mnie zasadzi†!',@data_poczatkowa_zasiana);  ELSEIF NEW.status = 'ZASADZONE' THEN DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zasadzi†!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Mo¾esz mnie zasadzi†!'; SET @data_poczatkowa_zbioru = (SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e,NEW.id_ogrodka,'Gotowe do zebrania!',@data_poczatkowa_zbioru);  ELSEIF NEW.status = 'DO ZBIORU' THEN  SET @data_koncowa_zabioru = (SELECT okres_zbioru_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e,NEW.id_ogrodka,'Nie zapomij mnie zebra†!',@data_koncowa_zbioru);  ELSEIF NEW.status = 'ZEBRANE' THEN  DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e;END IF */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `zmien_powiadomienie_status` AFTER UPDATE ON `egzemplarze` FOR EACH ROW IF NEW.status = 'NIE ZASADZONE' THEN DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zebra�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Gotowe do zebrania!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zasadzi�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Mo�esz mnie zasadzi�!'; SET @data_koncowa_zasiana = (SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny);  SET @data_poczatkowa_zasiana = (SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,'Nie zapomnij mnie zasadzi�!',@data_koncowa_zasiana), (NEW.id_e, NEW.id_ogrodka,'Mo�esz mnie zasadzi�!',@data_poczatkowa_zasiana);  ELSEIF NEW.status = 'ZASADZONE' THEN  DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zebra�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Gotowe do zebrania!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zasadzi�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Mo�esz mnie zasadzi�!';SET @data_poczatkowa_zbioru = (SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e,NEW.id_ogrodka,'Gotowe do zebrania!',@data_poczatkowa_zbioru);  ELSEIF NEW.status = 'DO ZBIORU' THEN DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zebra�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Gotowe do zebrania!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zasadzi�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Mo�esz mnie zasadzi�!'; SET @data_koncowa_zabioru = (SELECT okres_zbioru_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny); INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e,NEW.id_ogrodka,'Nie zapomnij mnie zebra�!',@data_koncowa_zabioru);  ELSEIF NEW.status = 'ZEBRANE' THEN  DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zebra�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Gotowe do zebrania!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Nie zapomnij mnie zasadzi�!'; DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = 'Mo�esz mnie zasadzi�!';END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -96,7 +96,7 @@ CREATE TABLE `obserwacje` (
   KEY `id_uzytkownika` (`id_uzytkownika`),
   CONSTRAINT `obserwacje_ibfk_1` FOREIGN KEY (`id_egzemplarza`) REFERENCES `egzemplarze` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `obserwacje_ibfk_2` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `obserwacje` (
 
 LOCK TABLES `obserwacje` WRITE;
 /*!40000 ALTER TABLE `obserwacje` DISABLE KEYS */;
-INSERT INTO `obserwacje` VALUES (1,1,1,'Marchew rośnie książkowo','2020-05-03 12:05:48'),(2,1,1,'Faza wzrostu: początkowa ','2020-05-03 12:24:31'),(9,2,3,'faza wzrostu: początkowa','2020-05-03 16:45:18'),(10,4,7,'faza wzrostu: początkowa','2020-05-03 16:48:00'),(11,4,7,'przyda się nawóz','2020-05-03 16:48:34');
+INSERT INTO `obserwacje` VALUES (1,1,1,'Marchew rośnie książkowo','2020-05-03 12:05:48'),(2,1,1,'Faza wzrostu: początkowa ','2020-05-03 12:24:31'),(9,2,3,'faza wzrostu: początkowa','2020-05-03 16:45:18'),(12,1,10,'Faza wzrostu: początkowa ','2020-05-05 13:26:27'),(19,1,17,'Faza wzrostu: początkowa ','2020-05-05 13:27:46'),(20,1,18,'Faza wzrostu: początkowa ','2020-05-05 13:27:51');
 /*!40000 ALTER TABLE `obserwacje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +125,7 @@ CREATE TABLE `ogrodki` (
   UNIQUE KEY `id_og` (`id_og`),
   KEY `id_uzytkownika` (`id_uzytkownika`),
   CONSTRAINT `ogrodki_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +134,7 @@ CREATE TABLE `ogrodki` (
 
 LOCK TABLES `ogrodki` WRITE;
 /*!40000 ALTER TABLE `ogrodki` DISABLE KEYS */;
-INSERT INTO `ogrodki` VALUES (1,1,'Ogródek warzywny','ul. Kolejowa 22 Borków'),(2,2,'Ogródek1','ul. Majowa 13 Malczyce'),(3,1,'Ogródek owocowy','ul.Kolejowa 22 Borków'),(5,5,'Ogródek A4','ul. Brzoskwiniowa 6 Wrocław');
+INSERT INTO `ogrodki` VALUES (1,1,'Ogródek warzywny','ul. Kolejowa 22 Borków'),(2,2,'Ogródek1','ul. Majowa 13 Malczyce'),(3,1,'Ogródek owocowy','ul.Kolejowa 22 Borków'),(5,5,'Ogródek A4','ul. Brzoskwiniowa 6 Wrocław'),(8,1,'Ogrodek mamy','ul. Wrocławska 2 Wrocław');
 /*!40000 ALTER TABLE `ogrodki` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `powiadomienia` (
   KEY `id_egzemplarza` (`id_egzemplarza`),
   CONSTRAINT `powiadomienia_ibfk_1` FOREIGN KEY (`id_ogrodka`) REFERENCES `ogrodki` (`id_og`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `powiadomienia_ibfk_2` FOREIGN KEY (`id_egzemplarza`) REFERENCES `egzemplarze` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +166,7 @@ CREATE TABLE `powiadomienia` (
 
 LOCK TABLES `powiadomienia` WRITE;
 /*!40000 ALTER TABLE `powiadomienia` DISABLE KEYS */;
-INSERT INTO `powiadomienia` VALUES (1,1,NULL,' Nie zapomnij mnie podlać','2020-05-05 12:10:10'),(2,NULL,1,' Przekop ogródek','2020-03-01 12:00:00'),(3,3,NULL,' Nie zapomnij mnie podlać','2020-05-05 12:00:00'),(4,2,NULL,' Pamiętaj aby mnie zasiać! ','2020-03-01 10:00:00'),(5,10,1,'Nie zapomnij mnie zasadzić!','2020-05-03 19:11:47'),(8,17,1,'Gotowe do zebrania!','2020-07-15 00:00:00'),(9,17,1,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(10,17,1,'Możesz mnie zasadzić!','2020-03-15 00:00:00');
+INSERT INTO `powiadomienia` VALUES (2,NULL,1,' Przekop ogródek','2020-03-01 12:00:00'),(54,1,1,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(55,1,1,'Możesz mnie zasadzić!','2020-03-15 00:00:00'),(56,2,1,'Nie zapomnij mnie zasadzić!','2020-05-30 00:00:00'),(57,2,1,'Możesz mnie zasadzić!','2020-03-01 00:00:00'),(58,3,2,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(59,3,2,'Możesz mnie zasadzić!','2020-03-15 00:00:00'),(64,4,2,'Nie zapomnij mnie zasadzić!','2020-05-30 00:00:00'),(65,4,2,'Możesz mnie zasadzić!','2020-03-01 00:00:00'),(70,8,2,'Nie zapomnij mnie zasadzić!','2020-05-30 00:00:00'),(71,8,2,'Możesz mnie zasadzić!','2020-03-01 00:00:00'),(72,10,1,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(73,10,1,'Możesz mnie zasadzić!','2020-03-15 00:00:00'),(74,15,1,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(75,15,1,'Możesz mnie zasadzić!','2020-03-15 00:00:00'),(76,17,1,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(77,17,1,'Możesz mnie zasadzić!','2020-03-15 00:00:00'),(78,18,1,'Nie zapomnij mnie zasadzić!','2020-04-15 00:00:00'),(79,18,1,'Możesz mnie zasadzić!','2020-03-15 00:00:00');
 /*!40000 ALTER TABLE `powiadomienia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +188,7 @@ CREATE TABLE `rosliny` (
   `czestotliwosc_podlewania` int NOT NULL,
   PRIMARY KEY (`id_r`),
   UNIQUE KEY `id_r` (`id_r`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +197,7 @@ CREATE TABLE `rosliny` (
 
 LOCK TABLES `rosliny` WRITE;
 /*!40000 ALTER TABLE `rosliny` DISABLE KEYS */;
-INSERT INTO `rosliny` VALUES (1,'Marchew','wczesna','2020-03-15 00:00:00','2020-04-15 00:00:00','2020-06-01 00:00:00','2020-07-30 00:00:00',3),(2,'Pietruszka','naciowa Mooskrause 2 - kędzieżawa','2020-03-01 00:00:00','2020-05-30 00:00:00','2020-05-30 00:00:00','2020-12-31 00:00:00',7),(3,'Burak','Cukrowy podłużny Opolski','2020-03-15 00:00:00','2020-04-15 00:00:00','2020-07-15 00:00:00','2020-09-30 00:00:00',14),(4,'Dynia','olbrzymia Uchiki Kuri','2020-05-01 00:00:00','2020-05-30 00:00:00','2020-08-01 00:00:00','2020-09-30 00:00:00',2),(5,'Koper','ogrodowy Sprinter','2020-03-01 00:00:00','2020-04-30 00:00:00','2020-05-01 00:00:00','2020-10-30 00:00:00',1);
+INSERT INTO `rosliny` VALUES (1,'Marchew','wczesna','2020-03-15 00:00:00','2020-04-15 00:00:00','2020-06-01 00:00:00','2020-07-30 00:00:00',3),(2,'Pietruszka','naciowa Mooskrause 2 - kędzieżawa','2020-03-01 00:00:00','2020-05-30 00:00:00','2020-05-30 00:00:00','2020-12-31 00:00:00',7),(3,'Burak','Cukrowy podłużny Opolski','2020-03-15 00:00:00','2020-04-15 00:00:00','2020-07-15 00:00:00','2020-09-30 00:00:00',14),(5,'Koper','ogrodowy Sprinter','2020-03-01 00:00:00','2020-04-30 00:00:00','2020-05-01 00:00:00','2020-10-30 00:00:00',1),(6,'Dynia','olbrzymia Uchiki Kuri','2020-05-01 00:00:00','2020-05-30 00:00:00','2020-08-01 00:00:00','2020-09-30 00:00:00',2);
 /*!40000 ALTER TABLE `rosliny` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +216,7 @@ CREATE TABLE `uzytkownicy` (
   PRIMARY KEY (`id_u`),
   UNIQUE KEY `id_u` (`id_u`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +225,7 @@ CREATE TABLE `uzytkownicy` (
 
 LOCK TABLES `uzytkownicy` WRITE;
 /*!40000 ALTER TABLE `uzytkownicy` DISABLE KEYS */;
-INSERT INTO `uzytkownicy` VALUES (1,'Magdalena','Madzia','haslo'),(2,'Filip','FFFFX','haslo'),(3,'Noname','tester','haslotestera'),(5,'Noname','tester2','haslotestera2');
+INSERT INTO `uzytkownicy` VALUES (1,'Magdalena','Madzia','haslo'),(2,'Filip','FFFFX','haslo'),(3,'Noname','tester','haslotestera'),(5,'Noname','tester2','haslotestera2'),(6,'Tester3','LoginTestera','hasloDlaInnegoTestera');
 /*!40000 ALTER TABLE `uzytkownicy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,4 +266,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-04 16:43:45
+-- Dump completed on 2020-05-05 13:37:48
