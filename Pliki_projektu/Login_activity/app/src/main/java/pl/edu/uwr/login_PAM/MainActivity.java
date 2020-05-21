@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+// obsługuje logowanie
 public class MainActivity extends AppCompatActivity {
 
     EditText _username_txt, _password_txt;
@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("tworzymy baze danych");
         gardenDb = new SqlDatabase(this);
 
         _username_txt = (EditText) findViewById(R.id.name_txt);
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = _password_txt.getText().toString();
                 ArrayList<String> _all_users = new ArrayList<>();
                 ArrayList<String> _all_users_password = new ArrayList<>();
-                Cursor users = gardenDb.getAllData("users");
+                Cursor users = gardenDb.getAllData("uzytkownicy");
                 while(users.moveToNext()){
                     _all_users.add(users.getString(1));
                     _all_users_password.add(users.getString(2));
@@ -64,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Intent menuIntent = new Intent(MainActivity.this, MenuActivity.class);
                     startActivity(menuIntent);
+                    finish();
                 }
 
             }

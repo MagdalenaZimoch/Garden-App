@@ -11,13 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+// obsługuje dodanie nowego użytkownika
 public class Register extends AppCompatActivity {
 
     Button _back_to_login_btn;
     Button _register_new_user_btn;
     EditText _name, _password, _confirm_password;
     SqlDatabase gardenDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +50,9 @@ public class Register extends AppCompatActivity {
                 //sprawdzanie w bd czy istnieje juz taki uzytkownik
                 ArrayList<String> _all_users = new ArrayList<>();
                 name_ok = true;
-                Cursor users = gardenDb.getAllData("users");
+                Cursor users = gardenDb.getAllData("uzytkownicy");
                 while(users.moveToNext()){
-                    _all_users.add(users.getString(1));
+                    _all_users.add(users.getString(2));
                 }
                 for(int i=0;i<_all_users.size();i++)
                 {

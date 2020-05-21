@@ -10,4 +10,16 @@
     <string name="user_name">Nazwa użytkownika</string>
     <string name="register_baner">REJESTRACJA</string>
     <string name="moje_powiadomienia_button_text">Moje powiadomienia</string>
+    <string name="przykladowa_nazwa_ogrodka">Nazwa1</string>
+    <string name="txt_status">Status:</string>
+    <string name="status_txt">Nie zasadzone</string>
+    <string name="btn_obserwacje">OBSERWACJE</string>
+    <string name="zmien_status_btn">ZMIEŃ STATUS</string>
+    <string name="txt_Twoj_Ogrodek">Twój Ogródek</string>
+    <string name="wybierz_co_sadzisz">Wybierz co chcesz zasiać/zasadzić w swoim ogrodku!</string>
+    <string name="wyszukiwarka_txt">Możesz tutaj wyszukać</string>
+    <string name="pokaz_info_txt">Więcej informacji</string>
+    <string name="dodaj_btn">Dodaj</string>
+    <string name="nazwa_rosliny_txt">Nazwa_rosliny1</string>
+    <string name="dodaj_nasiona_txt">Dodaj rośliny do ogródka</string>
 </resources>

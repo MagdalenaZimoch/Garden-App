@@ -41,7 +41,8 @@
             android:drawableLeft="@android:drawable/ic_menu_my_calendar"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/nazwa_u_ytkownika"
+            android:hint="@string/nazwa_u_ytkownika"
+            android:textColorHint="@android:color/darker_gray"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,8 @@
             android:drawableLeft="@android:drawable/ic_lock_lock"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/has_o"
+            android:hint="@string/has_o"
+            android:textColorHint="@android:color/darker_gray"
             android:textColor="@android:color/white"
             tools:ignore="LabelFor,RtlHardcoded,TextFields" />
 
