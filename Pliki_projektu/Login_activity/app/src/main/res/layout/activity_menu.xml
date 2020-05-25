@@ -18,8 +18,9 @@
         android:layout_margin="10dp"
         android:background="@drawable/button_background"
         android:padding="10dp"
+        android:text="Moje ogródki"
         android:textColor="#ffffff"
-        android:text="Mój ogródek" />
+        tools:shadowRadius="20" />
     <Button
         android:id="@+id/add_seed_button"
         android:layout_width="200dp"

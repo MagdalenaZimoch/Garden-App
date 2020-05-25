@@ -17,14 +17,15 @@ public class MainActivity extends AppCompatActivity {
 
     EditText _username_txt, _password_txt;
     Button _login_btn, _register_btn;
+    int id_uz;
     TextView _register_txt;
-    public SqlDatabase gardenDb;
+    public DatabasesOpenHelper gardenDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gardenDb = new SqlDatabase(this);
+        gardenDb = new DatabasesOpenHelper(this);
 
         _username_txt = (EditText) findViewById(R.id.name_txt);
         _password_txt = (EditText) findViewById(R.id.password_txt);
@@ -44,24 +45,30 @@ public class MainActivity extends AppCompatActivity {
                 boolean access_granted = false;
                 String user_name = _username_txt.getText().toString();
                 String password = _password_txt.getText().toString();
+                ArrayList<Integer> _id_uzytkownikow = new ArrayList<>();
                 ArrayList<String> _all_users = new ArrayList<>();
                 ArrayList<String> _all_users_password = new ArrayList<>();
                 Cursor users = gardenDb.getAllData("uzytkownicy");
                 while(users.moveToNext()){
-                    _all_users.add(users.getString(1));
-                    _all_users_password.add(users.getString(2));
+                    _all_users.add(users.getString(2));
+                    _all_users_password.add(users.getString(3));
+                    _id_uzytkownikow.add(users.getInt(1));
                 }
                 for(int i=0;i<_all_users.size();i++)
                 {
                     if(user_name.equals(_all_users.get(i)))
                     {
-                        if(password.equals(_all_users_password.get(i))) access_granted=true;
+                        if(password.equals(_all_users_password.get(i))){
+                            access_granted=true;
+                            id_uz = _id_uzytkownikow.get(i);
+                        }
                         else ToastMessage("Blad hasła/użytkownika");
                     }
                 }
                 if(access_granted)
                 {
                     Intent menuIntent = new Intent(MainActivity.this, MenuActivity.class);
+                    menuIntent.putExtra("id_uzytkownika",id_uz);
                     startActivity(menuIntent);
                     finish();
                 }

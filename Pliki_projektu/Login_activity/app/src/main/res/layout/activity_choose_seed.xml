@@ -10,7 +10,7 @@
     android:overScrollMode="ifContentScrolls"
     android:padding="10dp"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".MenuActivity">
+    tools:context=".ChooseSeed">
 
     <LinearLayout
         android:layout_width="match_parent"

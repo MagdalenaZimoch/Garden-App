@@ -16,14 +16,14 @@ public class Register extends AppCompatActivity {
 
     Button _back_to_login_btn;
     Button _register_new_user_btn;
-    EditText _name, _password, _confirm_password;
-    SqlDatabase gardenDb;
+    EditText _name, _password, _confirm_password, _nazwa;
+    DatabasesOpenHelper gardenDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        gardenDb = new SqlDatabase(this);
+        gardenDb = new DatabasesOpenHelper(this);
 
         _back_to_login_btn = (Button) findViewById(R.id.back_to_login_btn);
         _register_new_user_btn = (Button) findViewById(R.id.register_to_bd_btn);
@@ -31,6 +31,7 @@ public class Register extends AppCompatActivity {
         _name = (EditText) findViewById(R.id.name_txt);
         _password = (EditText) findViewById(R.id.password_txt);
         _confirm_password = (EditText) findViewById(R.id.repeat_password_txt);
+        _nazwa = findViewById(R.id.username_txt);
 
         _back_to_login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,7 @@ public class Register extends AppCompatActivity {
                 String name = _name.getText().toString();
                 String password = _password.getText().toString();
                 String confirm_password = _confirm_password.getText().toString();
+                String nazwa = _nazwa.getText().toString();
                 boolean name_ok, password_ok;
 
                 //sprawdzanie w bd czy istnieje juz taki uzytkownik
@@ -76,7 +78,7 @@ public class Register extends AppCompatActivity {
 
                 if(name_ok && password_ok)
                 {
-                    gardenDb.addUser(name,password);
+                    gardenDb.insert_uzytkownik(name,password,nazwa);
                     ToastMessage("Dodano nowego użytkownika");
 
                     Intent mainIntent = new Intent(Register.this,MainActivity.class);
