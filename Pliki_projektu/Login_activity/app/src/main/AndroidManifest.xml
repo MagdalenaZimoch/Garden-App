@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddGarden"></activity>
+        <activity android:name=".Seeds"></activity>
+        <activity android:name=".MyReminder" />
+        <activity android:name=".AddGarden" />
         <activity android:name=".ChooseSeed" />
         <activity android:name=".Garden" />
         <activity android:name=".MyGarden" />

@@ -23,12 +23,6 @@
         android:gravity="center">
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/garden_diary_logo" />
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />

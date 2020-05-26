@@ -67,10 +67,11 @@ public class MyGarden extends AppCompatActivity {
         //odczytane wartosci z bazy danych
         while(rosliny_c.moveToNext()){
             nazwa_rosliny_s.add(rosliny_c.getString(4));
-            miejsce_rosliny_s.add(rosliny_c.getString(2));
-            status_rosliny_s.add(rosliny_c.getString(3));
+            String temp = "Miejsce: "+ rosliny_c.getString(2);
+            miejsce_rosliny_s.add(temp);
+            String temp2 = "Status: "+ rosliny_c.getString(3) + "  ";
+            status_rosliny_s.add(temp2);
             id_rosliny_s.add(rosliny_c.getInt(1));
-            System.out.println(rosliny_c.getString(4));
         }
     }
     void set()
@@ -191,7 +192,7 @@ public class MyGarden extends AppCompatActivity {
     }
     void stworz_btn(String _text, ArrayList<Button> _lista)
     {
-        LinearLayout.LayoutParams button_param = new LinearLayout.LayoutParams(100,100);
+        LinearLayout.LayoutParams button_param = new LinearLayout.LayoutParams(50,50);
         button_param.setMargins(0,0,20,0);
         Button temp_1 = new Button(this);
         temp_1.setBackgroundResource(R.drawable.button_background);

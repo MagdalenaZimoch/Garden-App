@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         _nowe_nasiona_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainIntent = new Intent(MenuActivity.this,Garden.class);
+                Intent mainIntent = new Intent(MenuActivity.this,Seeds.class);
                 startActivity(mainIntent);
                 finish();
             }
@@ -44,7 +44,7 @@ public class MenuActivity extends AppCompatActivity {
         _moje_powiadomienia_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainIntent = new Intent(MenuActivity.this,Garden.class);
+                Intent mainIntent = new Intent(MenuActivity.this,MyReminder.class);
                 mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
                 finish();
