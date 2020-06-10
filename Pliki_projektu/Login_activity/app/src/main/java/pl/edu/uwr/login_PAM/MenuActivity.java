@@ -19,6 +19,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         id_uz = getIntent().getIntExtra("id_uzytkownika",0);
+        System.out.println("Zalogowany: " + id_uz);
 
         _moje_ogrodki_btn = findViewById(R.id.my_garden_button);
         _nowe_nasiona_btn = findViewById(R.id.add_seed_button);
@@ -30,15 +31,14 @@ public class MenuActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(MenuActivity.this,Garden.class);
                 mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
-                finish();
             }
         });
         _nowe_nasiona_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent mainIntent = new Intent(MenuActivity.this,Seeds.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
-                finish();
             }
         });
         _moje_powiadomienia_btn.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +47,6 @@ public class MenuActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(MenuActivity.this,MyReminder.class);
                 mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
-                finish();
             }
         });
     }

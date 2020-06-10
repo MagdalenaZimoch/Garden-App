@@ -2,9 +2,12 @@ package pl.edu.uwr.login_PAM;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ public class MyReminder extends AppCompatActivity {
 
     private ArrayList<LinearLayout> container_ll;
 
+    private Button wroc;
     private LinearLayout scroll_ll;
     DatabasesOpenHelper db;
     private int id_uz;
@@ -35,11 +39,19 @@ public class MyReminder extends AppCompatActivity {
         setContentView(R.layout.activity_my_reminder);
         id_uz = getIntent().getIntExtra("id_uzytkownika",0);
         db = new DatabasesOpenHelper(this);
-
+        wroc = findViewById(R.id.back_button);
         scroll_ll = findViewById(R.id.powiadomienia_linearlayout);
         read();
         set();
         show();
+        wroc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(MyReminder.this,MenuActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        });
     }
     void read()
     {

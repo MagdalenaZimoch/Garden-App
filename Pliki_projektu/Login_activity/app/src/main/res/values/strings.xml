@@ -9,7 +9,7 @@
     <string name="password">Hasło</string>
     <string name="user_name">Nazwa użytkownika</string>
     <string name="register_baner">REJESTRACJA</string>
-    <string name="moje_powiadomienia_button_text">Moje powiadomienia</string>
+    <string name="moje_powiadomienia_button_text">Moje \n powiadomienia</string>
     <string name="przykladowa_nazwa_ogrodka">Nazwa1</string>
     <string name="txt_status">Status:</string>
     <string name="status_txt">Nie zasadzone</string>
@@ -21,7 +21,7 @@
     <string name="pokaz_info_txt">Więcej informacji</string>
     <string name="dodaj_btn">Dodaj</string>
     <string name="nazwa_rosliny_txt">Nazwa_rosliny1</string>
-    <string name="dodaj_nasiona_txt">Dodaj rośliny do ogródka</string>
+    <string name="dodaj_nasiona_txt">Dodaj rośliny \n do ogródka</string>
     <string name="Status_btn">Status:</string>
     <string name="Miejsce_btn">Miejsce:</string>
     <string name="powiadomienia_btn">P</string>
@@ -160,82 +160,77 @@ CREATE TABLE IF NOT EXISTS "uzytkownicy" (
                 (19,17,\"Faza wzrostu: początkowa \",\"2020-05-05 13:27:46\");\n</string>
 
 
-    <string name="trigger1">DROP TRIGGER IF EXISTS "zmien_powiadomienie_status_nz";
-CREATE TRIGGER zmien_powiadomienie_status_nz AFTER UPDATE ON egzemplarze FOR EACH ROW
- WHEN NEW.status = "NZ"
- BEGIN
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zebrać!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Gotowe do zebrania!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zasadzić!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Możesz mnie zasadzić!";
- INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES
- (NEW.id_e, NEW.id_ogrodka,"Nie zapomnij mnie zasadzić!",(SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
-INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES
- (NEW.id_e, NEW.id_ogrodka,"Możesz mnie zasadzić!",(SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
- END; </string>
-    <string name="trigger2">DROP TRIGGER IF EXISTS "zmien_powiadomienie_status_z";
-CREATE TRIGGER zmien_powiadomienie_status_z AFTER UPDATE ON egzemplarze FOR EACH ROW
- WHEN NEW.status = "Z"
- BEGIN
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zebrać!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Gotowe do zebrania!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zasadzić!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Możesz mnie zasadzić!";
-INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES
-(NEW.id_e,NEW.id_ogrodka,"Gotowe do zebrania!",(SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
- END;
-</string>
-    <string name="trigger3">DROP TRIGGER IF EXISTS "zmien_powiadomienie_status_dz";
-CREATE TRIGGER zmien_powiadomienie_status_dz AFTER UPDATE ON egzemplarze FOR EACH ROW
- WHEN NEW.status = "DZ"
- BEGIN
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zebrać!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zebrać!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Gotowe do zebrania!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zasadzić!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Możesz mnie zasadzić!";
-INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES
- (NEW.id_e,NEW.id_ogrodka,"Nie zapomnij mnie zebrać!",(SELECT okres_zbioru_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
- END;</string>
+    <string name="trigger1">
+    CREATE TRIGGER zmien_powiadomienie_status_nz AFTER UPDATE ON egzemplarze FOR EACH ROW
+    WHEN NEW.status = \"NZ\"
+    BEGIN
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zebrać!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Gotowe do zebrania!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zasadzić!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Możesz mnie zasadzić!\";
+    INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_e, NEW.id_ogrodka,\"Nie zapomnij mnie zasadzić!\",(SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
+    INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_e, NEW.id_ogrodka,\"Możesz mnie zasadzić!\",(SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny)); END; </string>
+    <string name="trigger2">
+    CREATE TRIGGER zmien_powiadomienie_status_z AFTER UPDATE ON egzemplarze FOR EACH ROW
+    WHEN NEW.status = \"Z\"
+    BEGIN
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zebrać!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Gotowe do zebrania!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zasadzić!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Możesz mnie zasadzić!\";
+    INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_e,NEW.id_ogrodka,\"Gotowe do zebrania!\",(SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
+    END;
+    </string>
+    <string name="trigger3">
+    CREATE TRIGGER zmien_powiadomienie_status_dz AFTER UPDATE ON egzemplarze FOR EACH ROW
+    WHEN NEW.status = \"DZ\"
+    BEGIN
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zebrać!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zebrać!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Gotowe do zebrania!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zasadzić!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Możesz mnie zasadzić!\";
+    INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_e,NEW.id_ogrodka,\"Nie zapomnij mnie zebrać!\",(SELECT okres_zbioru_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
+    END;</string>
     <string name="trigger4">
-DROP TRIGGER IF EXISTS "zmien_powiadomienie_status_ze";
-CREATE TRIGGER zmien_powiadomienie_status_ze AFTER UPDATE ON egzemplarze FOR EACH ROW
- WHEN NEW.status = "ZE"
- BEGIN
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zebrać!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Gotowe do zebrania!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Nie zapomnij mnie zasadzić!";
- DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = "Możesz mnie zasadzić!";
-        END;</string>
+    CREATE TRIGGER zmien_powiadomienie_status_ze AFTER UPDATE ON egzemplarze FOR EACH ROW
+    WHEN NEW.status = \"ZE\"
+    BEGIN
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zebrać!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Gotowe do zebrania!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Nie zapomnij mnie zasadzić!\";
+    DELETE FROM powiadomienia where id_egzemplarza = NEW.id_e AND tresc = \"Możesz mnie zasadzić!\";
+    END;</string>
+
     <string name="trigger5">
-DROP TRIGGER IF EXISTS "dodaj_powiadomienie_nowy_ogrodek";
-CREATE TRIGGER `dodaj_powiadomienie_nowy_ogrodek` AFTER INSERT ON ogrodki FOR EACH ROW
- WHEN (datetime("now") between datetime("now", "start of year") and datetime("now", "start of year","+3 months"))
- BEGIN INSERT INTO powiadomienia(id_ogrodka,tresc,data_powiadomienia) VALUES
-(NEW.id_og,"Przekop ogródek!",(SELECT datetime ("now","start of year","end of month","+2 month")));
-        END;</string>
+    CREATE TRIGGER dodaj_powiadomienie_nowy_ogrodek AFTER INSERT ON ogrodki FOR EACH ROW
+    WHEN (datetime(\"now\") between datetime(\"now\", \"start of year\") and datetime(\"now\", \"start of year\",\"+3 months\"))
+    BEGIN INSERT INTO powiadomienia(id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_og,\"Przekop ogródek!\",(SELECT datetime (\"now\",\"start of year\",\"end of month\",\"+2 month\")));
+    END;</string>
     <string name="trigger6">
-DROP TRIGGER IF EXISTS "dodaj_powiadomienie_nowy_ogrodek_kolejny_rok";
-CREATE TRIGGER `dodaj_powiadomienie_nowy_ogrodek_kolejny_rok` AFTER INSERT ON ogrodki FOR EACH ROW
- WHEN (datetime("now") not between datetime("now", "start of year") and datetime("now", "start of year","+3 months"))
- BEGIN INSERT INTO powiadomienia(id_ogrodka,tresc,data_powiadomienia) VALUES
-(NEW.id_og,"Przekop ogródek!",(SELECT datetime ("now","start of year","+1 year","start of month","+3 month")));
-        END;</string>
+    CREATE TRIGGER dodaj_powiadomienie_nowy_ogrodek_kolejny_rok AFTER INSERT ON ogrodki FOR EACH ROW
+    WHEN (datetime(\"now\") not between datetime(\"now\", \"start of year\") and datetime(\"now\", \"start of year\",\"+3 months\"))
+    BEGIN INSERT INTO powiadomienia(id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_og,\"Przekop ogródek!\",(SELECT datetime (\"now\",\"start of year\",\"+1 year\",\"start of month\",\"+3 month\")));
+    END;</string>
     <string name="trigger7">
-DROP TRIGGER IF EXISTS "dodaj_powiadomienie_status_nz";
-CREATE TRIGGER `dodaj_powiadomienie_status_nz` AFTER INSERT ON egzemplarze FOR EACH ROW
- WHEN NEW.status = "NZ"
- BEGIN
- INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES
- (NEW.id_e, NEW.id_ogrodka,"Nie zapomnij mnie zasadzić!",(SELECT okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny)),
- (NEW.id_e, NEW.id_ogrodka,"Możesz mnie zasadzić!",(SELECT okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
-        END;</string>
+    CREATE TRIGGER dodaj_powiadomienie_status_nz AFTER INSERT ON egzemplarze FOR EACH ROW
+    WHEN NEW.status = \"NZ\"
+    BEGIN
+    INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_e, NEW.id_ogrodka,\"Nie zapomnij mnie zasadzić!\",(SELECT rosliny.okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny)),
+    (NEW.id_e, NEW.id_ogrodka,\"Możesz mnie zasadzić!\",(SELECT rosliny.okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
+    END;</string>
     <string name="trigger8">
-DROP TRIGGER IF EXISTS "dodaj_powiadomienie_status_z";
-CREATE TRIGGER `dodaj_powiadomienie_status_z` AFTER UPDATE ON egzemplarze FOR EACH ROW
- WHEN NEW.status = "Z"
- BEGIN
-INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES
-(NEW.id_e,NEW.id_ogrodka,"Gotowe do zebrania!",(SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
-        END;</string>
+    CREATE TRIGGER dodaj_powiadomienie_status_z AFTER UPDATE ON egzemplarze FOR EACH ROW
+    WHEN NEW.status = \"Z\"
+    BEGIN
+    INSERT INTO powiadomienia(id_egzemplarza, id_ogrodka,tresc,data_powiadomienia) VALUES
+    (NEW.id_e,NEW.id_ogrodka,\"Gotowe do zebrania!\",(SELECT okres_zbioru_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny));
+    END;</string>
 </resources>

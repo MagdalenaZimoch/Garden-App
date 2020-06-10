@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 while(users.moveToNext()){
                     _all_users.add(users.getString(2));
                     _all_users_password.add(users.getString(3));
-                    _id_uzytkownikow.add(users.getInt(1));
+                    _id_uzytkownikow.add(users.getInt(0));
                 }
                 for(int i=0;i<_all_users.size();i++)
                 {

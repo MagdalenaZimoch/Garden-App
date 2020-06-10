@@ -1,10 +1,15 @@
 package pl.edu.uwr.login_PAM;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,88 +20,80 @@ import java.util.ArrayList;
 
 public class Seeds extends AppCompatActivity {
 
-    private ArrayList<String> _id_rosliny, _nazwa, _odmiana, _okres_siewu_p, _okres_siewu_k,_okres_zbioru_p, _okres_zbioru_k,_czest_podl;
+    private ArrayList<String>  _nazwa, _odmiana, _okres_siewu_p, _okres_siewu_k,_okres_zbioru_p, _okres_zbioru_k,_czest_podl;
     private ArrayList<TextView> id_rosliny, nazwa, odmiana, okres_siewu_p, okres_siewu_k,okres_zbioru_p, okres_zbioru_k,czest_podl;
+    private ArrayList<Integer> _id_rosliny;
     private ArrayList<Button> more_info_b;
     private ArrayList<LinearLayout> container_ll;
     private LinearLayout scroll_ll;
+    private Button back;
+    private int id_uz;
     DatabasesOpenHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seeds);
+
+        id_uz = getIntent().getIntExtra("id_uzytkownika",0);
         scroll_ll = findViewById(R.id.roslina_linearlayout);
+
         db = new DatabasesOpenHelper(this);
+
         read();
         set();
         show();
+
+        back = findViewById(R.id.back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(Seeds.this,MenuActivity.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                startActivity(mainIntent);
+                finish();
+            }
+        });
+
     }
     void read()
     {
         _id_rosliny = new ArrayList<>();
         _nazwa = new ArrayList<>();
         _odmiana = new ArrayList<>();
-        _okres_siewu_p = new ArrayList<>();
-        _okres_siewu_k = new ArrayList<>();
-        _okres_zbioru_p = new ArrayList<>();
-        _okres_zbioru_k = new ArrayList<>();
-        _czest_podl = new ArrayList<>();
         Cursor data = db.getAllData("rosliny");
         while(data.moveToNext()){
-            String temp0 = "id: " + data.getInt(0);
-            _id_rosliny.add(temp0);
+            _id_rosliny.add(data.getInt(0));
             _nazwa.add(data.getString(1));
+            System.out.println("tutaj wypisuje" + data.getString(1));
             _odmiana.add(data.getString(2));
-            _okres_siewu_p.add(data.getString(3));
-            _okres_siewu_k.add(data.getString(4));
-            _okres_zbioru_p.add(data.getString(5));
-            _okres_zbioru_k.add(data.getString(6));
-            _czest_podl.add(data.getString(7));
         }
     }
     void set()
     {
-        id_rosliny = new ArrayList<>();
         nazwa = new ArrayList<>();
         odmiana = new ArrayList<>();
-        okres_siewu_p = new ArrayList<>();
-        okres_siewu_k = new ArrayList<>();
-        okres_zbioru_p = new ArrayList<>();
-        okres_zbioru_k = new ArrayList<>();
-        czest_podl = new ArrayList<>();
         more_info_b = new ArrayList<>();
 
-        insertString(_id_rosliny,id_rosliny);
         insertString(_nazwa,nazwa);
         insertString(_odmiana,odmiana);
-        insertString(_okres_siewu_p, okres_siewu_p);
-        insertString(_okres_siewu_k,okres_siewu_k);
-        insertString(_okres_zbioru_p,okres_zbioru_p);
-        insertString(_okres_zbioru_k,okres_zbioru_k);
-        insertString(_czest_podl,czest_podl);
         Createbutton();
 
         container_ll = new ArrayList<>();
         LinearLayout.LayoutParams container_param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         container_param.setMargins(0,20,0,0);
-        for(int i=0; i<id_rosliny.size();i++)
+        for(int i=0; i<nazwa.size();i++)
         {
             LinearLayout container = new LinearLayout(this);
-            container.addView(id_rosliny.get(i));
             container.addView(nazwa.get(i));
             container.addView(odmiana.get(i));
-            container.addView(okres_siewu_p.get(i));
-            container.addView(okres_siewu_k.get(i));
-            container.addView(okres_zbioru_p.get(i));
-            container.addView(okres_zbioru_k.get(i));
-            container.addView(czest_podl.get(i));
             container.addView(more_info_b.get(i));
             container.setLayoutParams(container_param);
             container.setOrientation(LinearLayout.VERTICAL);
             container.setBackgroundResource(R.drawable.test_pop);
             container.setPadding(10,10,10,10);
             container_ll.add(container);
+            System.out.println(i);
         }
 
     }
@@ -105,6 +102,7 @@ public class Seeds extends AppCompatActivity {
         for(LinearLayout el: container_ll)
         {
             scroll_ll.addView(el);
+
         }
     }
     void insertString(ArrayList<String> where, ArrayList<TextView> to)
@@ -120,13 +118,24 @@ public class Seeds extends AppCompatActivity {
     }
     void Createbutton()
     {
-        for(String el: _id_rosliny)
+        for(Integer el: _id_rosliny)
         {
             Button btn = new Button(this);
             btn.setText("More info");
+            btn.setId(el);
             btn.setTextColor(Color.WHITE);
             btn.setBackgroundResource(R.drawable.button_background);
             more_info_b.add(btn);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int id = view.getId();
+                    Intent mainIntent = new Intent(Seeds.this,DescribeSeed.class);
+                    mainIntent.putExtra("id_uzytkownika",id_uz);
+                    mainIntent.putExtra("id_rosliny",id);
+                    startActivity(mainIntent);
+                }
+            });
         }
 
 

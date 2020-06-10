@@ -18,15 +18,22 @@
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
         android:gravity="bottom|center_horizontal"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="26dp">
 
         <Button
+            android:id="@+id/back_button"
+            style="@style/wroc_button" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
             android:id="@+id/dodaj_roslina"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/button_background"
+            style="@style/buttonStyle"
             android:drawableLeft="@android:drawable/ic_input_add"
             android:text="dodaj roślinę" />
     </LinearLayout>

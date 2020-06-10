@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1B0C"
+    android:gravity="center_horizontal|top"
+    android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls"
+    android:padding="10dp"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:context=".AddSeed2">
+
+    <TextView
+        android:id="@+id/informacje_roslina_tv"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Informacje o roślinie"
+        android:background="@drawable/test_pop"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/wroc_button_add2"
+            style="@style/wroc_button"
+            />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/dodaj_button"
+            style="@style/buttonStyle"
+            android:layout_gravity="right"
+            android:drawableLeft="@android:drawable/ic_input_add"
+            android:text="@string/dodaj_btn" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/miejsce_egzemplarza_editText"
+        android:ems="10"
+        android:hint="Wpisz miejsce dla egzemplarza"
+        android:inputType="textPersonName"
+        style="@style/editText"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dodaj_nasiona_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp" />
+    </ScrollView>
+
+</LinearLayout>

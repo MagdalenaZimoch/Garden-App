@@ -14,7 +14,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     private static Context context2;
 
     public DatabasesOpenHelper(@Nullable Context context) {
-        super(context,"Garden.db", null, 17);
+        super(context,"Garden.db", null, 25);
         context2 = context;
     }
 
@@ -67,7 +67,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(trigger5);
         String trigger6 = context2.getString(R.string.trigger6);
         sqLiteDatabase.execSQL(trigger6);
-        String trigger7 = context2.getString(R.string.trigger7);
+        String trigger7 = "CREATE TRIGGER dodaj_powiadomienie_status_nz AFTER INSERT ON egzemplarze FOR EACH ROW WHEN NEW.status = \"NZ\" BEGIN INSERT INTO powiadomienia(id_egzemplarza,id_ogrodka,tresc,data_powiadomienia) VALUES (NEW.id_e, NEW.id_ogrodka,\"Nie zapomnij mnie zasadzić!\",(SELECT rosliny.okres_siewu_koniec FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny)), (NEW.id_e, NEW.id_ogrodka,\"Możesz mnie zasadzić!\",(SELECT rosliny.okres_siewu_poczatek FROM rosliny WHERE rosliny.id_r = NEW.id_rosliny)); END";
         sqLiteDatabase.execSQL(trigger7);
         String trigger8 = context2.getString(R.string.trigger8);
         sqLiteDatabase.execSQL(trigger8);
@@ -84,6 +84,17 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS ogrodki");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS rosliny");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS uzytkownicy");
+
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS zmien_powiadomienie_status_nz");
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS zmien_powiadomienie_status_z");
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS zmien_powiadomienie_status_dz");
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS zmien_powiadomienie_status_ze");
+
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS dodaj_powiadomienie_nowy_ogrodek");
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS dodaj_powiadomienie_nowy_ogrodek_kolejny_rok");
+
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS dodaj_powiadomienie_status_nz");
+        sqLiteDatabase.execSQL("DROP TRIGGER IF EXISTS dodaj_powiadomienie_status_z");
 
         onCreate(sqLiteDatabase);
     }
@@ -142,7 +153,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         if(result == -1) return false;
         else return true;
     }
-    public boolean insert_egzemplarz(int _id_ogrodka, int _id_rosliny, String _miejsce, String _status, String _data_zmiany)
+    public boolean insert_egzemplarz(int _id_ogrodka, int _id_rosliny, String _miejsce, String _status)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -150,19 +161,17 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         cv.put("id_rosliny",_id_rosliny);
         cv.put("miejsce",_miejsce);
         cv.put("status",_status);
-        cv.put("data_zmiany_statusu",_data_zmiany);
 
         long result = gardenDb.insert("egzemplarze",null,cv);
         if(result == -1) return false;
         else return true;
     }
-    public boolean insert_obserwacje(int _id_egzemplarza, String _tresc, String _data_obserwacji)
+    public boolean insert_obserwacje(int _id_egzemplarza, String _tresc)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("id_egzemplarza",_id_egzemplarza);
         cv.put("tresc",_tresc);
-        cv.put("data_obserwacji",_data_obserwacji);
 
         long result = gardenDb.insert("obserwacje",null,cv);
         if(result == -1) return false;
@@ -312,7 +321,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("egzemplarze","where id_e = "+ String.valueOf(_id_e),null);
+        long result = gardenDb.delete("egzemplarze","id_e = "+ String.valueOf(_id_e),null);
         if(result == -1) return false;
         else return true;
     }
@@ -320,7 +329,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("obserwacje","where id_o = " + String.valueOf(_id_o),null);
+        long result = gardenDb.delete("obserwacje","id_o = " + String.valueOf(_id_o),null);
         if(result == -1) return false;
         else return true;
     }
@@ -366,6 +375,27 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         Cursor data = gardenDb.rawQuery(select_all,null);
         return data;
 
+    }
+
+    public Cursor getAllData_whereidr(String _table_name, int id_r) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all ="";
+        switch (_table_name){
+            case "rosliny":
+                select_all = "SELECT * FROM " +_table_name + " WHERE id_r = " + id_r;
+                break;
+            case "zasady":
+                select_all = "SELECT id_z,tresc FROM " +_table_name + " WHERE id_rosliny = " + id_r;
+        }
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getDataObserwacje(int id_eg, String obserwacje) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT * FROM " + obserwacje + " WHERE id_egzemplarza = " + id_eg;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
     }
 }
 

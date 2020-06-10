@@ -3,11 +3,13 @@ package pl.edu.uwr.login_PAM;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,16 +41,39 @@ public class MyGarden extends AppCompatActivity {
     private ArrayList<String> miejsce_rosliny_s;
     private ArrayList<String> status_rosliny_s;
     private ArrayList<Integer> id_rosliny_s;
+    private ArrayList<Integer> id_egzemplarza;
 
-    private int id_og;
+    private Button dodaj_nasiona, wroc_b;
+    private int id_og,id_uz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_garden);
         db = new DatabasesOpenHelper(this);
         id_og = getIntent().getIntExtra("id_ogrodka",0);
-        System.out.println(id_og);
+        id_uz = getIntent().getIntExtra("id_uzytkownika",0);
+
+        wroc_b = findViewById(R.id.wroc_button);
         _rosliny_ll = findViewById(R.id.rosliny_w_ogrodku_linearlayout);
+        dodaj_nasiona = findViewById(R.id.dodaj_nasiona_btn);
+        dodaj_nasiona.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(MyGarden.this,ChooseSeed.class);
+                mainIntent.putExtra("id_ogrodka",id_og);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                startActivity(mainIntent);
+            }
+        });
+        wroc_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(MyGarden.this,Garden.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                startActivity(mainIntent);
+                finish();
+            }
+        });
         read();
         set();
         show();
@@ -60,6 +85,7 @@ public class MyGarden extends AppCompatActivity {
         miejsce_rosliny_s = new ArrayList<>();
         status_rosliny_s = new ArrayList<>();
         id_rosliny_s = new ArrayList<>();
+        id_egzemplarza = new ArrayList<>();
 
         Cursor rosliny_c = db.get_Where_Garden_egzemplarz(id_og,"egzemplarze");
 
@@ -72,6 +98,7 @@ public class MyGarden extends AppCompatActivity {
             String temp2 = "Status: "+ rosliny_c.getString(3) + "  ";
             status_rosliny_s.add(temp2);
             id_rosliny_s.add(rosliny_c.getInt(1));
+            id_egzemplarza.add(rosliny_c.getInt(0));
         }
     }
     void set()
@@ -93,13 +120,13 @@ public class MyGarden extends AppCompatActivity {
         wpisz_string(miejsce_rosliny_s,_miejsce_rosliny_tv);
         wpisz_string(status_rosliny_s,_status_rosliny_tv);
 
-        for(Integer id : id_rosliny_s)
+        for(Integer id : id_egzemplarza)
         {
             //tworzenie buttonow
-            stworz_btn("O",_obserwacje_b);
-            stworz_btn("ZS",_zmien_status_b);
-            stworz_btn("P", _powiadomienia_b);
-            stworz_btn("U",_usun_rosline_b);
+            stworz_btn("O",_obserwacje_b,id);
+            stworz_btn("ZS",_zmien_status_b,id);
+            stworz_btn("P", _powiadomienia_b,id);
+            stworz_btn("U",_usun_rosline_b,id);
         }
     }
     @SuppressLint("RtlHardcoded")
@@ -190,28 +217,62 @@ public class MyGarden extends AppCompatActivity {
             _nazwa_gdzie_al.add(temp_tv);
         }
     }
-    void stworz_btn(String _text, ArrayList<Button> _lista)
+    void stworz_btn(String _text, ArrayList<Button> _lista, final int id_eg)
     {
         LinearLayout.LayoutParams button_param = new LinearLayout.LayoutParams(50,50);
         button_param.setMargins(0,0,20,0);
         Button temp_1 = new Button(this);
         temp_1.setBackgroundResource(R.drawable.button_background);
         Drawable img;
+        String id;
         switch (_text){
             case "O":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_view );
+                id = "O" + id_eg;
+                temp_1.setId(id_eg);
+                temp_1.setTag(id);
+                temp_1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent mainIntent = new Intent(MyGarden.this,Obserwation.class);
+                        mainIntent.putExtra("id_ogrodka",id_og);
+                        mainIntent.putExtra("id_egzemplarza",view.getId());
+                        mainIntent.putExtra("id_uzytkownika",id_uz);
+                        startActivity(mainIntent);
+                    }
+                });
                 break;
             case "ZS":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_edit );
+                id = "O" + id_eg;
+                temp_1.setTag(id);
                 break;
             case "P":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_info_details );
+                id = "O" + id_eg;
+                temp_1.setTag(id);
                 break;
             case "U":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_delete);
+                id = "O" + id_eg;
+                temp_1.setId(id_eg);
+                temp_1.setTag(id);
+                temp_1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        db.delete_egzemplarz(view.getId());
+                        _rosliny_ll.removeAllViews();
+                        read();
+                        set();
+                        show();
+                    }
+                });
+                temp_1.setTag(id);
                 break;
             default:
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_help );
+                id = "O" + id_eg;
+                temp_1.setTag(id);
                 System.out.println("Nic nie pasuje");
                 break;
         }

@@ -33,6 +33,7 @@ public class AddGarden extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent mainIntent = new Intent(AddGarden.this,Garden.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
                 finish();
             }
@@ -45,8 +46,8 @@ public class AddGarden extends AppCompatActivity {
                 String nazwa = _nazwa.getText().toString();
                 String adres = _adres.getText().toString();
                 db.insert_ogrodek(id_uz,nazwa,adres);
-
                 Intent mainIntent = new Intent(AddGarden.this,Garden.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
                 finish();
             }

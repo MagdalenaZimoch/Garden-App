@@ -10,7 +10,7 @@
     android:overScrollMode="ifContentScrolls"
     android:padding="10dp"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".MyReminder">
+    tools:context=".Obserwation">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -23,23 +23,23 @@
         tools:layout_editor_absoluteX="26dp">
 
         <Button
-            android:id="@+id/back_button"
+            android:id="@+id/wroc_button_do_mygarden"
             style="@style/wroc_button" />
 
         <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/dodaj_powiadomienia"
+            android:id="@+id/obserwacje_btn"
             style="@style/buttonStyle"
             android:drawableLeft="@android:drawable/ic_input_add"
-            android:text="dodaj powiadomienie" />
+            android:text="dodaj obserwacje" />
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/powiadomienia_scrollView"
+        android:id="@+id/obserwacje_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="2dp"
@@ -51,34 +51,27 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Informacja_powiadomienie">
+        app:layout_constraintTop_toBottomOf="@+id/obserwacje_garden">
 
         <LinearLayout
-            android:id="@+id/powiadomienia_linearlayout"
+            android:id="@+id/obserwacje_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
 
     <TextView
-        android:id="@+id/Informacja_powiadomienie"
+        android:id="@+id/obserwacje_garden"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="20dp"
         android:layout_gravity="top"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="2dp"
         android:background="@drawable/test_pop"
         android:gravity="center"
-        android:text="Twoje powiadomienia"
+        android:text=" "
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/powiadomienia_scrollView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,6 +34,7 @@
 
         <EditText
             android:id="@+id/name_txt"
+            style="@style/editText"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -42,12 +43,9 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="@string/nazwa_u_ytkownika"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:autofillHints=""
             android:drawableStart="@android:drawable/ic_menu_my_calendar"
             tools:ignore="LabelFor" />
 
@@ -57,17 +55,8 @@
 
         <EditText
             android:id="@+id/password_txt"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:autofillHints=""
-            android:background="@drawable/edittext"
-            android:drawableLeft="@android:drawable/ic_lock_lock"
-            android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/has_o"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/white"
+            style="@style/editText2"
             tools:ignore="LabelFor,RtlHardcoded,TextFields" />
 
         <Space
@@ -82,15 +71,9 @@
 
             <Button
                 android:id="@+id/login_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/buttonStyle"
                 android:layout_gravity="bottom"
-                android:background="@drawable/button_background"
-                android:ellipsize="middle"
                 android:text="@string/zaloguj"
-                android:textColor="@android:color/white"
                 android:typeface="normal" />
 
             <Space
@@ -100,16 +83,9 @@
 
             <Button
                 android:id="@+id/register_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/buttonStyle"
                 android:layout_gravity="bottom"
-                android:background="@drawable/button_background"
-                android:ellipsize="marquee"
-                android:text="@string/zarejestruj"
-                android:textColor="@android:color/white"
-                android:typeface="normal" />
+                android:text="@string/zarejestruj"/>
 
         </LinearLayout>
 
@@ -117,13 +93,12 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textView"
+        android:background="#0F120C"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="@string/zaloguj_zarejestruj"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
