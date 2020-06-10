@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1B0C"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls"
+    android:padding="10dp"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:context=".ChooseSeed">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/wroc_do_mygarden_button"
+            style="@style/wroc_button" />
+
+        <EditText
+            android:id="@+id/Wyszukiwarka_txt"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:ems="10"
+            android:hint="@string/wyszukiwarka_txt"
+            android:inputType="textPersonName"
+            style="@style/editText" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dodaj_nasiona_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"/>
+    </ScrollView>
+
+</LinearLayout>

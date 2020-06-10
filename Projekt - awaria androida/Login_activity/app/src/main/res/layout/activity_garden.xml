@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1B0C"
+    android:gravity="center_horizontal|top"
+    android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls"
+    android:padding="10dp"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:context=".Garden">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/wroc_btn_do_menu"
+            style="@style/wroc_button" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/dodaj_ogrodek_btn"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_input_add"
+            android:text="dodaj nowy ogródek"
+            style="@style/buttonStyle" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/miejsce_na_ogrodki"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/miejsce_na_ogrodki_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/wyszukiwarka_ogrodkow_editText"
+                style="@style/editText"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:ems="10"
+                android:hint="Wyszukaj"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

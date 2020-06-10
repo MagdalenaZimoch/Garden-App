@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#0D1B0C"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGarden">
+
+    <EditText
+        android:id="@+id/name_garden_editText"
+        android:drawableLeft="@android:drawable/ic_menu_myplaces"
+        android:ems="10"
+        android:hint="Wpisz nazwę ogródka"
+        android:inputType="textPersonName"
+        style="@style/editText"/>
+
+    <EditText
+        android:id="@+id/adress_editText"
+        android:drawableLeft="@android:drawable/ic_menu_mapmode"
+        android:ems="10"
+        android:hint="Wpisz adres ogródka"
+        android:inputType="textPersonName"
+        style="@style/editText"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/back_button"
+            style="@style/wroc_button" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/safe_button"
+            style="@style/buttonStyle"
+            android:text="ZAPISZ" />
+
+    </LinearLayout>
+
+</LinearLayout>

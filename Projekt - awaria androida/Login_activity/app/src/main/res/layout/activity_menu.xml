@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1B0C"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MenuActivity"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
+
+    <Button
+        android:id="@+id/my_garden_button"
+        style="@style/buttonStyle"
+        android:layout_width="200dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="Moje ogródki" />
+
+    <Button
+        android:id="@+id/add_seed_button"
+        style="@style/buttonStyle"
+        android:layout_width="200dp"
+        android:layout_margin="10dp"
+        android:drawableLeft="@android:drawable/ic_input_add"
+        android:padding="10dp"
+        android:text="Przegląd \n nasion"/>
+
+    <Button
+        android:id="@+id/my_reminder"
+        style="@style/buttonStyle"
+        android:layout_width="200dp"
+        android:layout_margin="10dp"
+        android:drawableLeft="@android:drawable/ic_input_add"
+        android:padding="10dp"
+        android:text="@string/moje_powiadomienia_button_text"/>
+
+</LinearLayout>
