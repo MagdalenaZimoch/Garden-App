@@ -57,10 +57,13 @@ public class Obserwation extends AppCompatActivity {
             }
         });
 
+
+
         read();
         set();
         show();
     }
+
     public void read()
     {
         System.out.println("pokazuje na nowo");
@@ -146,6 +149,18 @@ public class Obserwation extends AppCompatActivity {
             case "zmien":
                 temp.setBackgroundResource(android.R.drawable.ic_menu_edit);
                 zmien_obserwacja_b.add(temp);
+                temp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int id_o = view.getId();
+                        Intent mainIntent = new Intent(Obserwation.this,EditObserwation.class);
+                        mainIntent.putExtra("id_obserwacji",id_o);
+                        mainIntent.putExtra("id_ogrodka",id_og);
+                        mainIntent.putExtra("id_egzemplarza",id_eg);
+                        mainIntent.putExtra("id_uzytkownika",id_uz);
+                        startActivity(mainIntent);
+                    }
+                });
                 break;
         }
 

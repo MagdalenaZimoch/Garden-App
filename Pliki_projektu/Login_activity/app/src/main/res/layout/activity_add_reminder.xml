@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddReminder"
+    style="@style/garden">
+
+    <TextView
+        android:id="@+id/textView_dodaj_powiadomienie"
+        style="@style/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:text="DODAJ POWIADOMIENIE"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_dodaj_powiadomienie">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_tresc_ar"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Treść powiadomienia:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_tresc_ar"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:hint="Wpisz treść"
+                android:inputType="textPersonName"
+                tools:inputType="textMultiLine" />
+
+            <TextView
+                android:id="@+id/textView_data_ar"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Data powiadomienia:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_data_ar"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="yyyy-mm-dd"
+                android:inputType="textPersonName"
+                android:maxLength="10" />
+
+            <TextView
+                android:id="@+id/textView_godzina_ar"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Godzina:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_godzina_ar"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="gg:mm"
+                android:inputType="textPersonName"
+                android:maxLength="5" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button_wroc_ar"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WRÓĆ" />
+
+        <Button
+            android:id="@+id/button_zapisz_ar"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ZAPISZ" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

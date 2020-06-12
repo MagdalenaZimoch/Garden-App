@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="horizontal">
 
         <Button
@@ -26,9 +27,17 @@
 
         <Button
             android:id="@+id/button_edytuj_ds"
-            android:layout_height="wrap_content"
             style="@style/buttonStyle"
-            android:text="EDYTUJ" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableLeft="@android:drawable/ic_menu_edit" />
+
+        <Button
+            android:id="@+id/button_usun_ds"
+            style="@style/buttonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableLeft="@android:drawable/ic_menu_delete" />
 
     </LinearLayout>
 
@@ -56,43 +65,46 @@
                 android:id="@+id/text_nazwa"
                 style="@style/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Nazwa:" />
 
             <TextView
                 android:id="@+id/text_odmiana"
                 style="@style/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Odmiana:" />
 
             <TextView
                 android:id="@+id/text_okres_siewu"
                 style="@style/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Okres siewu" />
 
             <TextView
                 android:id="@+id/text_okres_zbioru"
                 style="@style/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Okres zbioru" />
 
             <TextView
                 android:id="@+id/text_czestotliwosc_podlewania"
                 style="@style/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Częstotliwość podlewania:" />
+
+            <Button
+                android:id="@+id/button_zasady"
+                style="@style/buttonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zasady"
+                tools:layout_margin="16dp" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/button_zasady"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Zasady" />
 </LinearLayout>

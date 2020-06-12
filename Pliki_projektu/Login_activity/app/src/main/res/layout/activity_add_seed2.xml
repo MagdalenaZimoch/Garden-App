@@ -15,13 +15,13 @@
     <TextView
         android:id="@+id/informacje_roslina_tv"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:gravity="center"
         android:layout_marginBottom="10dp"
         android:text="Informacje o roślinie"
         android:background="@drawable/test_pop"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp" />
+        android:textColor="#0D1B0C"
+        android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

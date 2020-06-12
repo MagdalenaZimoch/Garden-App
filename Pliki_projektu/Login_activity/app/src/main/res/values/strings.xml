@@ -9,7 +9,7 @@
     <string name="password">Hasło</string>
     <string name="user_name">Nazwa użytkownika</string>
     <string name="register_baner">REJESTRACJA</string>
-    <string name="moje_powiadomienia_button_text">Moje \n powiadomienia</string>
+    <string name="moje_powiadomienia_button_text">Moje \npowiadomienia</string>
     <string name="przykladowa_nazwa_ogrodka">Nazwa1</string>
     <string name="txt_status">Status:</string>
     <string name="status_txt">Nie zasadzone</string>

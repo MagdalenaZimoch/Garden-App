@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditEgzemplarz"
+    style="@style/garden">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="top"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/test_pop"
+        android:gravity="center"
+        android:text=" Egzemplarze - update "
+        android:textColor="#0D1B0C"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/test_pop"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="Zmień miejsce swojej rośliny:"
+                    android:textColor="#0F120C"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/miejsce_edittext"
+                    style="@style/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="10dp" />
+
+            <RadioGroup
+                android:id="@+id/status_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/test_pop"
+                android:padding="10dp">
+
+                <RadioButton
+                    android:id="@+id/radio_nz"
+                    style="@style/radiobutton"
+                    android:text="Nie zasadzone" />
+
+                <RadioButton
+                    android:id="@+id/radio_z"
+                    style="@style/radiobutton"
+                    android:text="Zasadzone" />
+
+                <RadioButton
+                    android:id="@+id/radio_dz"
+                    style="@style/radiobutton"
+                    android:text="Do zbioru" />
+
+                <RadioButton
+                    android:id="@+id/radio_ze"
+                    style="@style/radiobutton"
+                    android:text="Zebrane" />
+
+                <TextView
+                    android:id="@+id/Info_zmien_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Zmień status:"
+                    android:textSize="20sp"
+                    tools:textColor="#0F120C" />
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/wroc_ee"
+            style="@style/buttonStyle"
+            android:text="WRÓĆ" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/zapisz_ee"
+            style="@style/buttonStyle"
+            android:text="ZAPISZ" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

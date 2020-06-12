@@ -68,9 +68,9 @@
         android:layout_marginTop="2dp"
         android:background="@drawable/test_pop"
         android:gravity="center"
-        android:text=" "
-        android:textColor="@android:color/background_light"
-        android:textSize="30sp"
+        android:text=" Obserwacje - read "
+        android:textColor="#0D1B0C"
+        android:textSize="12sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="10dp" />
 

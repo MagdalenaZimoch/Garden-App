@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddSeed"
+    style="@style/garden">
+
+    <TextView
+        android:id="@+id/information_as"
+        style="@style/textView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:text="Dodaj nową roślinę/nasiona"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/information_as">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView_nazwa_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Nazwa:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_nazwa_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wpisz nazwę"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_odmiana_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Odmiana:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_odmiana_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wpisz odmianę"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_osp_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Początek siewu:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_osp_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_osk_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Koniec siewu:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_osk_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_ozp_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Początek zbioru:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_ozp_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_ozk_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Koniec zbioru:"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_ozk_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_czestotliwosc_as"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Częstotliwość podlewania"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editText_czestotliwosc_as"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wpisz liczbę dni "
+                android:inputType="textPersonName" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/wroc_button_as"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WRÓĆ" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/dodaj_button_as"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DODAJ" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

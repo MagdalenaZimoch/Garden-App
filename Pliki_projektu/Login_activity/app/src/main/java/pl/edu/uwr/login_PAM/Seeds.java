@@ -26,7 +26,7 @@ public class Seeds extends AppCompatActivity {
     private ArrayList<Button> more_info_b;
     private ArrayList<LinearLayout> container_ll;
     private LinearLayout scroll_ll;
-    private Button back;
+    private Button back,add_b;
     private int id_uz;
     DatabasesOpenHelper db;
 
@@ -52,6 +52,15 @@ public class Seeds extends AppCompatActivity {
                 mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);
                 finish();
+            }
+        });
+        add_b = findViewById(R.id.dodaj_roslina);
+        add_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(Seeds.this,AddSeed.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                startActivity(mainIntent);
             }
         });
 

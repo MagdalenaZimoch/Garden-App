@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.Editable;
 
 import androidx.annotation.Nullable;
 
@@ -192,15 +193,14 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     }
 
     //update
-    public boolean update_uzytkownik(int _id_u, String _login, String _haslo,String _nazwa)
+    public boolean update_uzytkownik(int _id_u, String _haslo)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("nazwa",_nazwa);
-        cv.put("haslo",_haslo);
-        cv.put("login",_login);
 
-        long result = gardenDb.update("uzytkownicy",cv,"where id_u = "+String.valueOf(_id_u),null);
+        cv.put("haslo",_haslo);
+
+        long result = gardenDb.update("uzytkownicy",cv,"id_u = "+String.valueOf(_id_u),null);
         if(result == -1) return false;
         else return true;
     }
@@ -217,56 +217,51 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         cv.put("czestotliwosc_podlewania",_czest_podl);
 
 
-        long result = gardenDb.update("rosliny",cv, "where id_r = "+String.valueOf(_id_r),null);
+        long result = gardenDb.update("rosliny",cv, "id_r = "+String.valueOf(_id_r),null);
         if(result == -1) return false;
         else return true;
     }
-    public boolean update_zasada(int _id_z, int _id_rosliny, String _tresc)
+    public boolean update_zasada(int _id_z, String _tresc)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("id_rosliny",_id_rosliny);
         cv.put("tresc",_tresc);
 
-        long result = gardenDb.update("zasady",cv, "where id_z = "+ String.valueOf(_id_z),null);
+        long result = gardenDb.update("zasady",cv, "id_z = "+ String.valueOf(_id_z),null);
         if(result == -1) return false;
         else return true;
     }
-    public boolean update_ogrodek(int _id_o, int _id_uzytkownika, String _nazwa,String _adres)
+    public boolean update_ogrodek(int _id_o, String _nazwa,String _adres)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("id_uzytkownika",_id_uzytkownika);
         cv.put("adres",_adres);
         cv.put("nazwa",_nazwa);
 
-        long result = gardenDb.update("ogrodki",cv, "where id_og = "+String.valueOf(_id_o),null);
+        long result = gardenDb.update("ogrodki",cv, "id_og = "+String.valueOf(_id_o),null);
         if(result == -1) return false;
         else return true;
     }
-    public boolean update_egzemplarz(int _id_e, int _id_ogrodka, int _id_rosliny, String _miejsce, String _status, String _data_zmiany)
+    public boolean update_egzemplarz(int _id_e, int _id_ogrodka, String _miejsce, String _status)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("id_ogrodka",_id_ogrodka);
-        cv.put("id_rosliny",_id_rosliny);
         cv.put("miejsce",_miejsce);
         cv.put("status",_status);
-        cv.put("data_zmiany_statusu",_data_zmiany);
 
-        long result = gardenDb.update("egzemplarze",cv,"where id_e = "+ String.valueOf(_id_e),null);
+        long result = gardenDb.update("egzemplarze",cv,"id_e = "+ String.valueOf(_id_e),null);
         if(result == -1) return false;
         else return true;
     }
-    public boolean update_obserwacje(int _id_o, int _id_egzemplarza, String _tresc, String _data_obserwacji)
+    public boolean update_obserwacje(int _id_o, int _id_egzemplarza, String _tresc)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("id_egzemplarza",_id_egzemplarza);
         cv.put("tresc",_tresc);
-        cv.put("data_obserwacji",_data_obserwacji);
 
-        long result = gardenDb.update("obserwacje",cv, "where id_o = " + String.valueOf(_id_o),null);
+        long result = gardenDb.update("obserwacje",cv, "id_o = " + String.valueOf(_id_o),null);
         if(result == -1) return false;
         else return true;
     }
@@ -279,9 +274,50 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         cv.put("tresc",_tresc);
         cv.put("data_powiadomienia",_data);
 
-        long result = gardenDb.update("powiadomienia",cv,"where id_p = "+ String.valueOf(_id_p),null);
+        long result = gardenDb.update("powiadomienia",cv,"id_p = "+ String.valueOf(_id_p),null);
         if(result == -1) return false;
         else return true;
+    }
+    public boolean update_powiadomienia_update_roslina(int id_ro, String osp, String osk, String ozp, String ozk) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+
+        Cursor e = gardenDb.rawQuery("select id_e from egzemplarze join rosliny on id_rosliny = id_r where id_r =" +id_ro,null);
+        while (e.moveToNext()){
+            Cursor c = gardenDb.rawQuery("SELECT id_p from powiadomienia where tresc =\"Nie zapomnij mnie zebrać!\"",null);
+            while(c.moveToNext())
+            {
+                ContentValues cv = new ContentValues();
+                cv.put("data_powiadomienia",ozk);
+                long result = gardenDb.update("powiadomienia",cv,"id_p = "+ c.getString(0) + " and id_egzemplarza=" + e.getString(0),null);
+                if(result == -1) return false;
+            }
+            Cursor d = gardenDb.rawQuery("SELECT id_p from powiadomienia where tresc =\"Możesz mnie zasadzić!\"",null);
+            while(d.moveToNext())
+            {
+                ContentValues cv = new ContentValues();
+                cv.put("data_powiadomienia",osp);
+                long result = gardenDb.update("powiadomienia",cv,"id_p = "+ d.getString(0) + " and id_egzemplarza=" + e.getString(0),null);
+                if(result == -1) return false;
+            }
+            Cursor f = gardenDb.rawQuery("SELECT id_p from powiadomienia where tresc =\"Nie zapomnij mnie zasadzić!\"",null);
+            while(f.moveToNext())
+            {
+                ContentValues cv = new ContentValues();
+                cv.put("data_powiadomienia",osk);
+                long result = gardenDb.update("powiadomienia",cv,"id_p = "+ f.getString(0) + " and id_egzemplarza=" + e.getString(0),null);
+                if(result == -1) return false;
+            }
+            Cursor g = gardenDb.rawQuery("SELECT id_p from powiadomienia where tresc =\"Gotowe do zebrania!\"",null);
+            while(g.moveToNext())
+            {
+                ContentValues cv = new ContentValues();
+                cv.put("data_powiadomienia",ozp);
+                long result = gardenDb.update("powiadomienia",cv,"id_p = "+ g.getString(0) + " and id_egzemplarza=" + e.getString(0),null);
+                if(result == -1) return false;
+            }
+        }
+        return true;
+
     }
 
     //delete
@@ -289,7 +325,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("uzytkownicy","where id_u = "+String.valueOf(_id_u),null);
+        long result = gardenDb.delete("uzytkownicy","id_u = "+String.valueOf(_id_u),null);
         if(result == -1) return false;
         else return true;
     }
@@ -297,7 +333,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("rosliny", "where id_r = "+String.valueOf(_id_r),null);
+        long result = gardenDb.delete("rosliny", "id_r = "+String.valueOf(_id_r),null);
         if(result == -1) return false;
         else return true;
     }
@@ -305,7 +341,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("zasady","where id_z = "+ String.valueOf(_id_z),null);
+        long result = gardenDb.delete("zasady","id_z = "+ String.valueOf(_id_z),null);
         if(result == -1) return false;
         else return true;
     }
@@ -313,7 +349,7 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("ogrodki","where id_og = "+String.valueOf(_id_o),null);
+        long result = gardenDb.delete("ogrodki","id_og = "+String.valueOf(_id_o),null);
         if(result == -1) return false;
         else return true;
     }
@@ -337,11 +373,13 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
 
-        long result = gardenDb.delete("powiadomienia","where id_p = "+ String.valueOf(_id_p),null);
+        long result = gardenDb.delete("powiadomienia","id_p = "+ String.valueOf(_id_p),null);
         if(result == -1) return false;
         else return true;
     }
 
+
+    /// READ
     public Cursor getAllData(String _table_name)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
@@ -350,6 +388,24 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         return data;
 
     }
+
+    public Cursor get_Reminder_User(int _id_uz)
+    {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+
+        gardenDb.execSQL("drop view if exists pomocnicza_powiadomienia");
+        gardenDb.execSQL("create  view  pomocnicza_powiadomienia as " +
+                "select powiadomienia.id_p, rosliny.nazwa, powiadomienia.id_ogrodka,powiadomienia.tresc,powiadomienia.data_powiadomienia from powiadomienia " +
+                "join egzemplarze on powiadomienia.id_egzemplarza = egzemplarze.id_e left join rosliny on egzemplarze.id_rosliny = rosliny.id_r;");
+        gardenDb.execSQL(" drop view if exists pomocnicza_2;");
+        gardenDb.execSQL(" create view pomocnicza_2 as select p.id_p,p.nazwa,p.id_ogrodka,ogrodki.nazwa as nazwa_ogrodka,ogrodki.id_uzytkownika,p.tresc,p.data_powiadomienia from pomocnicza_powiadomienia as p left join ogrodki on p.id_ogrodka = ogrodki.id_og ");
+        //id egzemplarza //id ogrodka naleza do uzytkownika o id
+        String select_all ="select p.id_p,p.nazwa,p.nazwa_ogrodka,p.tresc,p.data_powiadomienia from pomocnicza_2 as p join uzytkownicy on p.id_uzytkownika = uzytkownicy.id_u where uzytkownicy.id_u = " + _id_uz;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+
+    }
+
     public Cursor get_Where_User(int _id_uz, String _table_name)
     {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
@@ -394,6 +450,64 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
     public Cursor getDataObserwacje(int id_eg, String obserwacje) {
         SQLiteDatabase gardenDb = this.getWritableDatabase();
         String select_all = "SELECT * FROM " + obserwacje + " WHERE id_egzemplarza = " + id_eg;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getTextObserwacje(int id_obserwacji) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT tresc FROM obserwacje WHERE id_o = " + id_obserwacji;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+
+    public Cursor getPlaceEgzemplarz(int id_eg) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT miejsce,status FROM egzemplarze WHERE id_e = " + id_eg;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getInfoGarden(int id_og) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT nazwa, adres FROM ogrodki WHERE id_og = " + id_og;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getPrinciples(int id_ro) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT * FROM zasady WHERE id_rosliny = " + id_ro;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getTextZasady(int id_za) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT tresc FROM zasady WHERE id_z = " + id_za;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getPassword(int id_uz) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT haslo FROM uzytkownicy WHERE id_u = " + id_uz;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public Cursor getSeed(int id_ro) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT * FROM rosliny WHERE id_r = " + id_ro;
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+
+    public Cursor getInfoReminder(int id_po) {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT * FROM powiadomienia WHERE id_p = " + id_po;
         Cursor data = gardenDb.rawQuery(select_all,null);
         return data;
     }

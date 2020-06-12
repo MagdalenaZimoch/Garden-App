@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditSeed"
+    style="@style/garden">
+
+    <TextView
+        android:id="@+id/informacja_es"
+        style="@style/textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:text="EDYTUJ ROŚLINĘ"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        app:layout_constraintTop_toBottomOf="@+id/informacja_es"
+        android:layout_marginStart="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_nazwa"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Nazwa:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_nazwa_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wpisz nazwę"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_odmiana"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Odmiana:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_odmiana_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wpisz odmianę"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView_osp"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Początek siewu:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_osp_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName"
+                android:maxLength="5" />
+
+            <TextView
+                android:id="@+id/textView_osk"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Koniec siewu:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_osk_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName"
+                android:maxLength="5" />
+
+            <TextView
+                android:id="@+id/textView_ozp"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Początek zbioru:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_ozp_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="dd-mm"
+                android:inputType="textPersonName"
+                android:maxLength="5" />
+
+            <TextView
+                android:id="@+id/textView_ozk"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Koniec zbioru:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_ozk_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="mm-dd"
+                android:inputType="textPersonName"
+                android:maxLength="5" />
+
+            <TextView
+                android:id="@+id/textView_czestotliwosc"
+                style="@style/textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Częstotliwość podlewania:"
+                android:textStyle="bold"
+                tools:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/editText_czestotliwosc_es"
+                style="@style/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wpisz liczbę dni"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/button_wroc_es"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WRÓĆ" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button_zapisz_es"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ZAPISZ" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

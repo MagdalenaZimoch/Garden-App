@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/garden"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditUser">
+
+
+    <Button
+        android:id="@+id/usun_uzytkownika_button_eu"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="USUŃ UŻYTKOWNIKA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/password_editText"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:ems="10"
+        android:hint="Wpisz swoje haslo"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <EditText
+        android:id="@+id/new_password_editText"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:ems="10"
+        android:hint="Wpisz nowe hasło"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_editText" />
+
+    <EditText
+        android:id="@+id/new_password_repeat_editText"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:ems="10"
+        android:hint="Powtórz nowe hasło"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_password_editText" />
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/textView"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="left"
+        android:text="Edytuj hasło lub\nusuń użytkownika"
+        android:textSize="15dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/usun_uzytkownika_button_eu"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/wroc_button_eu"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WRÓĆ" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/zapisz_button_eu"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ZAPISZ" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

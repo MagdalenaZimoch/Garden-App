@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DescribeSeed extends AppCompatActivity {
 
     private DatabasesOpenHelper db;
-    private Button wroc_btn, edytuj_btn;
+    private Button wroc_btn, edytuj_btn, usun_btn, zasady_btn;
     private TextView nazwa_tv,odmiana_tv,okres_siewu_tv,okres_zbioru_tv,czestotliwosc_tv;
     int id_uz, id_ro;
     @Override
@@ -27,6 +27,14 @@ public class DescribeSeed extends AppCompatActivity {
 
         db = new DatabasesOpenHelper(this);
 
+        nazwa_tv = findViewById(R.id.text_nazwa);
+        odmiana_tv = findViewById(R.id.text_odmiana);
+        okres_siewu_tv = findViewById(R.id.text_okres_siewu);
+        okres_zbioru_tv = findViewById(R.id.text_okres_zbioru);
+        czestotliwosc_tv = findViewById(R.id.text_czestotliwosc_podlewania);
+
+        read();
+
         wroc_btn = findViewById(R.id.button_wroc_ds);
         wroc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,15 +46,39 @@ public class DescribeSeed extends AppCompatActivity {
             }
         });
         edytuj_btn = findViewById(R.id.button_edytuj_ds);
+        edytuj_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(DescribeSeed.this,EditSeed.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                mainIntent.putExtra("id_rosliny",id_ro);
+                startActivity(mainIntent);
+            }
+        });
         //akcja do edytowania
+        usun_btn = findViewById(R.id.button_usun_ds);
+        usun_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        nazwa_tv = findViewById(R.id.text_nazwa);
-        odmiana_tv = findViewById(R.id.text_odmiana);
-        okres_siewu_tv = findViewById(R.id.text_okres_siewu);
-        okres_zbioru_tv = findViewById(R.id.text_okres_zbioru);
-        czestotliwosc_tv = findViewById(R.id.text_czestotliwosc_podlewania);
+                db.delete_roslina(id_ro);
 
-        read();
+                Intent mainIntent = new Intent(DescribeSeed.this,Seeds.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                startActivity(mainIntent);
+                finish();
+            }
+        });
+        zasady_btn = findViewById(R.id.button_zasady);
+        zasady_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(DescribeSeed.this,Principles.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                mainIntent.putExtra("id_rosliny",id_ro);
+                startActivity(mainIntent);
+            }
+        });
     }
     void read()
     {
@@ -55,15 +87,16 @@ public class DescribeSeed extends AppCompatActivity {
         while(c.moveToNext())
         {
             temp = nazwa_tv.getText().toString();
-            nazwa_tv.setText(temp + " " + c.getString(1));
+            nazwa_tv.setText(temp + " \n" + c.getString(1));
             temp = odmiana_tv.getText().toString();
-            odmiana_tv.setText(temp + " " + c.getString(2));
+            odmiana_tv.setText(temp + " \n" + c.getString(2));
             temp = okres_siewu_tv.getText().toString();
-            okres_siewu_tv.setText(temp + " \n"+ c.getString(3) + " - "+ c.getString(4));
+            String date_temp = c.getString(3);
+            okres_siewu_tv.setText(temp + " \n"+ date_temp.substring(5,10) + " / "+ c.getString(4).substring(5,10));
             temp = okres_zbioru_tv.getText().toString();
-            okres_zbioru_tv.setText(temp+ " \n" + c.getString(5)+ " - "+ c.getString(6));
+            okres_zbioru_tv.setText(temp+ " \n" + c.getString(5).substring(5,10)+ " / "+ c.getString(6).substring(5,10));
             temp = czestotliwosc_tv.getText().toString();
-            czestotliwosc_tv.setText(temp + " co "+ c.getString(7)+" dni");
+            czestotliwosc_tv.setText(temp + " \nco "+ c.getString(7)+" dni");
 
         }
     }

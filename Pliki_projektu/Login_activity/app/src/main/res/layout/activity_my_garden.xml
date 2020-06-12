@@ -12,21 +12,46 @@
     android:scrollbarAlwaysDrawVerticalTrack="true"
     tools:context=".MyGarden">
 
-    <EditText
-        android:id="@+id/wyszukiwarka_edittext"
-        style="@style/editText"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:ems="10"
-        android:hint="Wyszukaj"
-        android:inputType="textPersonName"
+    <Button
+        android:id="@+id/usun_ogrodek_b"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="Usuń ogródek"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Informacja_garden" />
+
+    <ScrollView
+        android:id="@+id/rosliny_w_ogrodku_scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usun_ogrodek_b">
+
+        <LinearLayout
+            android:id="@+id/rosliny_w_ogrodku_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
 
         android:gravity="bottom|center_horizontal"
         android:orientation="horizontal"
@@ -35,8 +60,8 @@
 
         <Button
             android:id="@+id/wroc_button"
-            android:layout_gravity="center"
-            style="@style/wroc_button" />
+            style="@style/wroc_button"
+            android:layout_gravity="center" />
 
         <Space
             android:layout_width="match_parent"
@@ -48,42 +73,30 @@
             style="@style/buttonStyle"
             android:drawableLeft="@android:drawable/ic_input_add"
             android:text="@string/dodaj_nasiona_txt" />
+
     </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/rosliny_w_ogrodku_scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wyszukiwarka_edittext">
-
-        <LinearLayout
-            android:id="@+id/rosliny_w_ogrodku_linearlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
 
     <TextView
         android:id="@+id/Informacja_garden"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="60dp"
         android:layout_gravity="top"
         android:layout_marginTop="2dp"
         android:background="@drawable/test_pop"
         android:gravity="center"
-        android:text=" "
-        android:textColor="@android:color/background_light"
-        android:textSize="30sp"
+        android:text=""
+        android:textColor="#0D1B0C"
+        android:textSize="12sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="10dp" />
+
+    <Button
+        android:id="@+id/edytuj_ogrodek_b"
+        style="@style/buttonStyle"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="EDYTUJ"
+        app:layout_constraintBaseline_toBaselineOf="@+id/usun_ogrodek_b"
+        app:layout_constraintEnd_toStartOf="@+id/usun_ogrodek_b" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

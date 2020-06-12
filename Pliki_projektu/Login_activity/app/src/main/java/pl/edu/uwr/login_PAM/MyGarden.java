@@ -43,7 +43,8 @@ public class MyGarden extends AppCompatActivity {
     private ArrayList<Integer> id_rosliny_s;
     private ArrayList<Integer> id_egzemplarza;
 
-    private Button dodaj_nasiona, wroc_b;
+    private Button dodaj_nasiona, wroc_b, usun_ogrodek_b, edytuj_ogrodek_b;
+    private TextView info_garden;
     private int id_og,id_uz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,13 @@ public class MyGarden extends AppCompatActivity {
         id_og = getIntent().getIntExtra("id_ogrodka",0);
         id_uz = getIntent().getIntExtra("id_uzytkownika",0);
 
-        wroc_b = findViewById(R.id.wroc_button);
         _rosliny_ll = findViewById(R.id.rosliny_w_ogrodku_linearlayout);
+
+        information_set();
+        read();
+        set();
+        show();
+
         dodaj_nasiona = findViewById(R.id.dodaj_nasiona_btn);
         dodaj_nasiona.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +71,8 @@ public class MyGarden extends AppCompatActivity {
                 startActivity(mainIntent);
             }
         });
+
+        wroc_b = findViewById(R.id.wroc_button);
         wroc_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,9 +82,41 @@ public class MyGarden extends AppCompatActivity {
                 finish();
             }
         });
-        read();
-        set();
-        show();
+
+        usun_ogrodek_b = findViewById(R.id.usun_ogrodek_b);
+        usun_ogrodek_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.delete_ogrodek(id_og);
+
+                Intent mainIntent = new Intent(MyGarden.this,Garden.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                startActivity(mainIntent);
+                finish();
+            }
+        });
+        edytuj_ogrodek_b = findViewById(R.id.edytuj_ogrodek_b);
+        edytuj_ogrodek_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(MyGarden.this,EditGarden.class);
+                mainIntent.putExtra("id_uzytkownika",id_uz);
+                mainIntent.putExtra("id_ogrodka",id_og);
+                startActivity(mainIntent);
+            }
+        });
+    }
+    void information_set()
+    {
+        Cursor c = db.getInfoGarden(id_og);
+        info_garden = findViewById(R.id.Informacja_garden);
+        String temp_info = "";
+        while(c.moveToNext())
+        {
+            temp_info = "Nazwa: " + c.getString(0) + " \nAdres: " + c.getString(1);
+        }
+        info_garden.setText(temp_info);
+
     }
 
     void read()
@@ -193,6 +233,7 @@ public class MyGarden extends AppCompatActivity {
             _rosliny_ll.addView(el);
         }
     }
+
     void wpisz_int(ArrayList<Integer> _nazwa_al, ArrayList<TextView> _nazwa_gdzie_al)
     {
         for(Integer el : _nazwa_al)
@@ -205,6 +246,7 @@ public class MyGarden extends AppCompatActivity {
             _nazwa_gdzie_al.add(temp_tv);
         }
     }
+
     void wpisz_string(ArrayList<String> _nazwa_al, ArrayList<TextView> _nazwa_gdzie_al)
     {
         for(String el : _nazwa_al)
@@ -217,6 +259,7 @@ public class MyGarden extends AppCompatActivity {
             _nazwa_gdzie_al.add(temp_tv);
         }
     }
+
     void stworz_btn(String _text, ArrayList<Button> _lista, final int id_eg)
     {
         LinearLayout.LayoutParams button_param = new LinearLayout.LayoutParams(50,50);
@@ -245,12 +288,37 @@ public class MyGarden extends AppCompatActivity {
             case "ZS":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_edit );
                 id = "O" + id_eg;
+                temp_1.setId(id_eg);
                 temp_1.setTag(id);
+
+                temp_1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent mainIntent = new Intent(MyGarden.this,EditEgzemplarz.class);
+                        mainIntent.putExtra("id_ogrodka",id_og);
+                        mainIntent.putExtra("id_egzemplarza",view.getId());
+                        System.out.println("id_egzemplarza" + view.getId());
+                        mainIntent.putExtra("id_uzytkownika",id_uz);
+                        startActivity(mainIntent);
+                    }
+                });
                 break;
             case "P":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_info_details );
                 id = "O" + id_eg;
                 temp_1.setTag(id);
+                temp_1.setId(id_eg);
+                temp_1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent mainIntent = new Intent(MyGarden.this,AddReminder.class);
+                        mainIntent.putExtra("id_ogrodka",id_og);
+                        mainIntent.putExtra("id_egzemplarza",view.getId());
+                        System.out.println("id_egzemplarza" + view.getId());
+                        mainIntent.putExtra("id_uzytkownika",id_uz);
+                        startActivity(mainIntent);
+                    }
+                });
                 break;
             case "U":
                 img = temp_1.getContext().getResources().getDrawable( android.R.drawable.ic_menu_delete);
