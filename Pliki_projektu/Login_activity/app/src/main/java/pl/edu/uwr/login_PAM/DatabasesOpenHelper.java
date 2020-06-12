@@ -2,12 +2,15 @@ package pl.edu.uwr.login_PAM;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Editable;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 
 public class DatabasesOpenHelper extends SQLiteOpenHelper {
@@ -510,6 +513,44 @@ public class DatabasesOpenHelper extends SQLiteOpenHelper {
         String select_all = "SELECT * FROM powiadomienia WHERE id_p = " + id_po;
         Cursor data = gardenDb.rawQuery(select_all,null);
         return data;
+    }
+
+    public Cursor getReminderUser(int id_uz)
+    {
+        SQLiteDatabase gardenDb = this.getWritableDatabase();
+        String select_all = "SELECT * FROM powiadomienia join ogrodki on id_og = id_ogrodka WHERE id_ogrodka IN (SELECT id_og from ogrodki where id_uzytkownika =" + id_uz + ")";
+        Cursor data = gardenDb.rawQuery(select_all,null);
+        return data;
+    }
+
+    public void startService(Context context, int id_uz)
+    {
+        Intent serviceIntent = new Intent(context, IntentServiceNotifications.class);
+
+        ArrayList<String> notification_time = new ArrayList<>();
+        ArrayList<String> notification_text = new ArrayList<>();
+
+        Cursor cursor = getReminderUser(id_uz);
+
+        if(cursor.moveToFirst() == true)
+        {
+            do
+            {
+                String time = cursor.getString(cursor.getColumnIndex("data_powiadomienia"));
+                String text = cursor.getString(cursor.getColumnIndex("tresc"));
+
+                notification_time.add(time);
+                notification_text.add(text);
+
+            } while (cursor.moveToNext() == true);
+
+
+            serviceIntent.putStringArrayListExtra("time", notification_time);
+            serviceIntent.putStringArrayListExtra("text", notification_text);
+
+            context.stopService(serviceIntent);
+            context.startService(serviceIntent);
+        }
     }
 }
 

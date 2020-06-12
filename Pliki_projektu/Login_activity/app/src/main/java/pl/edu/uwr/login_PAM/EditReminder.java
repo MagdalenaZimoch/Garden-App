@@ -51,6 +51,7 @@ public class EditReminder extends AppCompatActivity {
                     String tresc = tresc_et.getText().toString();
                     String data = data_et.getText().toString() + " " + godzina_et.getText().toString() + ":00";
                     db.update_powiadomienia(id_po,id_e,id_og,tresc,data);
+                    db.startService(EditReminder.this, id_uz);
 
                     Intent mainIntent = new Intent(EditReminder.this,MyReminder.class);
                     mainIntent.putExtra("id_uzytkownika",id_uz);
@@ -69,6 +70,7 @@ public class EditReminder extends AppCompatActivity {
             public void onClick(View view) {
 
                 db.delete_powiadomienia(id_po);
+                db.startService(EditReminder.this, id_uz);
 
                 Intent mainIntent = new Intent(EditReminder.this,MyReminder.class);
                 mainIntent.putExtra("id_uzytkownika",id_uz);

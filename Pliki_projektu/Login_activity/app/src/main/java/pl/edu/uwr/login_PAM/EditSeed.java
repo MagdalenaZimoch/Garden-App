@@ -57,6 +57,7 @@ public class EditSeed extends AppCompatActivity {
                 {
                     db.update_roslina(id_ro,nazwa,odmiana,osp,osk,ozp,ozk,czestotliwosc_int);
                     db.update_powiadomienia_update_roslina(id_ro,osp,osk,ozp,ozk);
+                    db.startService(EditSeed.this, id_uz);
                     Intent mainIntent = new Intent(EditSeed.this,DescribeSeed.class);
                     mainIntent.putExtra("id_uzytkownika",id_uz);
                     mainIntent.putExtra("id_rosliny",id_ro);

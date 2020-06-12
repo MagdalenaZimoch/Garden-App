@@ -46,6 +46,7 @@ public class AddGarden extends AppCompatActivity {
                 String nazwa = _nazwa.getText().toString();
                 String adres = _adres.getText().toString();
                 db.insert_ogrodek(id_uz,nazwa,adres);
+                db.startService(AddGarden.this, id_uz);
                 Intent mainIntent = new Intent(AddGarden.this,Garden.class);
                 mainIntent.putExtra("id_uzytkownika",id_uz);
                 startActivity(mainIntent);

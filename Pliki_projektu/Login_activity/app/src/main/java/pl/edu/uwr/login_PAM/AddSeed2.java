@@ -48,6 +48,7 @@ public class AddSeed2 extends AppCompatActivity {
                     miejsce_s = miejsce_et.getText().toString();
                     if(db.insert_egzemplarz(id_og,id_r,miejsce_s,"NZ"))
                     {
+                        db.startService(AddSeed2.this, id_uz);
                         Intent mainIntent = new Intent(AddSeed2.this,ChooseSeed.class);
                         mainIntent.putExtra("id_ogrodka",id_og);
                         mainIntent.putExtra("id_uzytkownika",id_uz);

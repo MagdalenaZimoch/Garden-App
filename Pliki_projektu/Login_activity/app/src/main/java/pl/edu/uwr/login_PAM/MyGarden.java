@@ -88,6 +88,7 @@ public class MyGarden extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.delete_ogrodek(id_og);
+                db.startService(MyGarden.this, id_uz);
 
                 Intent mainIntent = new Intent(MyGarden.this,Garden.class);
                 mainIntent.putExtra("id_uzytkownika",id_uz);
@@ -329,6 +330,7 @@ public class MyGarden extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         db.delete_egzemplarz(view.getId());
+                        db.startService(MyGarden.this, id_uz);
                         _rosliny_ll.removeAllViews();
                         read();
                         set();

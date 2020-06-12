@@ -2,43 +2,50 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.edu.uwr.login_PAM">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddReminder"></activity>
-        <activity android:name=".EditReminder" />
-        <activity android:name=".EditSeed" />
-        <activity android:name=".AddSeed" />
-        <activity android:name=".EditUser" />
-        <activity android:name=".EditPrinciple" />
-        <activity android:name=".AddPrinciple" />
-        <activity android:name=".Principles" />
-        <activity android:name=".EditGarden" />
-        <activity android:name=".EditEgzemplarz" />
-        <activity android:name=".EditObserwation" />
-        <activity android:name=".DescribeSeed" />
-        <activity android:name=".AddObserwation" />
-        <activity android:name=".Obserwation" />
-        <activity android:name=".AddSeed2" />
-        <activity android:name=".Seeds" />
-        <activity android:name=".MyReminder" />
-        <activity android:name=".AddGarden" />
-        <activity android:name=".ChooseSeed" />
-        <activity android:name=".Garden" />
-        <activity android:name=".MyGarden" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".Register" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".AddReminder" android:screenOrientation="portrait"/>
+        <activity android:name=".EditReminder" android:screenOrientation="portrait"/>
+        <activity android:name=".EditSeed" android:screenOrientation="portrait"/>
+        <activity android:name=".AddSeed" android:screenOrientation="portrait"/>
+        <activity android:name=".EditUser" android:screenOrientation="portrait"/>
+        <activity android:name=".EditPrinciple" android:screenOrientation="portrait"/>
+        <activity android:name=".AddPrinciple" android:screenOrientation="portrait"/>
+        <activity android:name=".Principles" android:screenOrientation="portrait"/>
+        <activity android:name=".EditGarden" android:screenOrientation="portrait"/>
+        <activity android:name=".EditEgzemplarz" android:screenOrientation="portrait" />
+        <activity android:name=".EditObserwation" android:screenOrientation="portrait" />
+        <activity android:name=".DescribeSeed" android:screenOrientation="portrait" />
+        <activity android:name=".AddObserwation" android:screenOrientation="portrait" />
+        <activity android:name=".Obserwation" android:screenOrientation="portrait" />
+        <activity android:name=".AddSeed2" android:screenOrientation="portrait" />
+        <activity android:name=".Seeds" android:screenOrientation="portrait" />
+        <activity android:name=".MyReminder" android:screenOrientation="portrait" />
+        <activity android:name=".AddGarden" android:screenOrientation="portrait"/>
+        <activity android:name=".ChooseSeed" android:screenOrientation="portrait"/>
+        <activity android:name=".Garden" android:screenOrientation="portrait"/>
+        <activity android:name=".MyGarden" android:screenOrientation="portrait"/>
+        <activity android:name=".MenuActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Register" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".IntentServiceNotifications" />
+
     </application>
 
 </manifest>
