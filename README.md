@@ -1,4 +1,4 @@
-## Ogródkowy kalendarz
+## Ogródkowy kalendarz - Aplikacja mobilna na system Android
 
 ### Aplikacja w której użytkownik:
   * ma dostęp do informacji kiedy i co powinien zasiać w ogródku,
